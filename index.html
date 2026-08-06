@@ -1,52 +1,826 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HEADLESS HORSE</title>
+    <meta name="description" content="Let's run ·𖥔 ݁˖">
+    <meta name="theme-color" content="#000000">
+    <meta property="og:title" content="HEADLESS HORSE">
+    <meta property="og:description" content="Let's run ·𖥔 ݁˖">
+    <meta property="og:image" content="https://headless.horse/sharecard.webp">
+    <meta property="og:url" content="https://headless.horse">
+    <link rel="icon" href="horseshoe.webp">
+    <style>
+      :root {
+        --corner: linear-gradient(to right, #999 1px, transparent 1px) 0 0, linear-gradient(to right, #999 1px, transparent 1px) 0 100%, linear-gradient(to left, #999 1px, transparent 1px) 100% 0, linear-gradient(to left, #999 1px, transparent 1px) 100% 100%, linear-gradient(to bottom, #999 1px, transparent 1px) 0 0, linear-gradient(to bottom, #999 1px, transparent 1px) 100% 0, linear-gradient(to top, #999 1px, transparent 1px) 0 100%, linear-gradient(to top, #999 1px, transparent 1px) 100% 100%
+      }
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>HEADLESS HORSE</title>
-  <meta name="description" content="Independent branding, design, and development studio.">
-  <meta name="theme-color" content="#000000">
-  <meta property="og:title" content="HEADLESS HORSE">
-  <meta property="og:description" content="Independent branding, design, and development studio.">
-  <meta property="og:image" content="https://headless.horse/assets/media/card.webp">
-  <meta property="og:url" content="https://headless.horse">
-  <link rel="icon" href="/assets/media/horseshoe.webp">
-  <link rel="stylesheet" href="/assets/css/index.css">
-</head>
+      * {
+        margin: 0;
+        padding: 0;
+        color: #999;
+        font: 400 12px/1.6 courier, monospace;
+        text-decoration: none;
+        list-style: none
+      }
 
-<body>
-  <header>
-    <a id="horseshoe"><img src="/assets/media/horseshoe.webp" alt="Headless Horse Menu"></a>
-    <menu id="menu">
-      <li><a href="/">Work</a></li>
-      <li><a href="/info">Info</a></li>
-      <li><a href="/research">Research</a></li>
-    </menu>
-  </header>
+      body {
+        background: #000
+      }
 
-  <img id="work" src="/assets/media/work.webp" alt="Headless Horse work" usemap="#work">
-  <map name="work">
-    <area shape="poly" title="Billelis: In Memoriam" coords="2357,531,2108,532,2108,541,1917,577,1938,631,1793,637,1925,872,1892,880,1923,993,1853,995,1985,1236,2450,1097,2253,825,2307,814,2253,732,2439,746" href="/work/billelis">
-    <area shape="poly" title="Chanel: No5" coords="321,367,349,554,537,527,536,556,542,553,479,704,713,728,769,556,594,538,651,526,591,313" href="/work/chanel">
-    <area shape="poly" title="Karl Lagerfeld" coords="1523,396,1572,644,1937,631,1849,384">
-    <area shape="poly" title="LYMA" coords="1110,1020,922,1055,967,1401,1345,1315,1300,1134,1151,1171" href="/work/lyma">
-    <area shape="poly" title="LYMA" coords="1142,379,1217,370,1276,607,959,649,926,403,938,403,956,446,1152,404" href="/work/lyma">
-    <area shape="poly" title="LYMA" coords="313,878,445,816,551,795,548,760,627,718,713,727,733,668,757,656,840,771,974,712,1095,903,1080,906,1094,953,804,1096,727,941,576,1023,649,1190,500,1272,447,1205,321,1290,258,1109,309,1095,308,1069,396,1026" href="/work/lyma">
-    <area shape="poly" title="Nike: Air Max Day" coords="903,307,954,446,1153,404,1092,268" href="/work/nike-air-max">
-    <area shape="poly" title="Nike: Air Max Day" coords="537,527,540,561,479,703,545,711,551,794,301,842,298,744,173,769,189,579" href="/work/nike-air-max">
-    <area shape="poly" title="Nike: Air Max Day" coords="1233,362,1281,533,1475,508,1446,424,1529,424,1522,397,1657,390,1611,230,1343,235,1351,347" href="/work/nike-air-max">
-    <area shape="poly" title="Renderboxes" coords="588,1029,773,1033,802,1096,932,1032,999,1031,999,1040,922,1055,966,1386,955,1492,479,1493,479,1483,588,1397,521,1306,534,1253,649,1190,584,1043" href="/work/renderboxes">
-    <area shape="poly" title="TEAM DR JOSEPH" coords="955,647,958,720,972,713,1093,904,1080,907,1153,1173,1469,1088,1524,1341,1915,1301,1809,999,1625,1006,1617,975,1567,981,1515,870,1554,867,1506,694,1344,723,1302,589,1271,593,1275,607" href="/work/team-dr-joseph">
-    <area shape="poly" title="TEAM DR JOSEPH" coords="1290,545,1344,723,1562,686,1625,1006,1925,994,1850,739,1810,660,1692,664,1682,640,1574,644,1544,505" href="/work/team-dr-joseph">    
-    <area shape="poly" title="@pizza" coords="1613,226,1838,214,1868,293,1927,174,2139,235,2112,329,2167,320,2272,502,1963,521,1902,380,1657,390">
-    <area shape="poly" title="Research" coords="2,1175,310,1095,298,745,1,808" href="/research">
-    <area shape="poly" title="Yves Saint Laurent Beauty" coords="199,1383,261,1359,258,1337,446,1208,592,1401,331,1604">
-  </map>
+      h2 {
+        text-transform: uppercase
+      }
 
-  <script src="/assets/js/main.js"></script>
-  <script async src="/assets/js/work.js"></script>
-  <script async defer src="https://scripts.withcabin.com/hello.js"></script>
-</body>
+      h2::before {
+        content: counter(section, decimal-leading-zero) ". ";
+        counter-increment: section
+      }
 
+      h2~h2 {
+        margin-top: 2em
+      }
+
+      a:hover {
+        cursor: pointer;
+        animation: flicker 2s
+      }
+
+      a[target=_blank] {
+        cursor: ne-resize
+      }
+
+      a[data-more]:hover::after {
+        content: ": " attr(data-more)
+      }
+
+      header {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1em 2em
+      }
+
+      #logo:hover {
+        animation: none
+      }
+
+      nav {
+        display: flex;
+        gap: 2em
+      }
+
+      nav button {
+        background: none;
+        border: 0;
+        text-transform: uppercase;
+        cursor: pointer
+      }
+
+      nav button:hover {
+        animation: flicker 2s
+      }
+
+      #viewport {
+        position: fixed;
+        inset: 0
+      }
+
+      #viewport::before,
+      #viewport::after {
+        content: "";
+        position: fixed;
+        left: 0;
+        right: 0;
+        height: 140px;
+        pointer-events: none;
+        z-index: 1
+      }
+
+      #viewport::before {
+        top: 0;
+        background: linear-gradient(to bottom, rgb(0, 0, 0, .8) 0%, transparent 100%)
+      }
+
+      #viewport::after {
+        bottom: 0;
+        background: linear-gradient(to top, rgb(0, 0, 0, .8) 0%, transparent 100%)
+      }
+
+      figure {
+        position: absolute;
+        padding: 2em;
+        background: var(--corner);
+        background-size: 4px 4px;
+        background-repeat: no-repeat;
+        transition: all .7s ease
+      }
+
+      figure:hover {
+        z-index: 999 !important;
+        background-size: 10px 10px
+      }
+
+      figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        filter: grayscale(50%) contrast(.8) brightness(.9);
+        animation: fade 1s 7s both;
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-drag: none
+      }
+
+      figure.own img {
+        filter: none
+      }
+
+      figure figcaption {
+        position: absolute;
+        left: 2em;
+        right: 2em;
+        bottom: .1em;
+        overflow: hidden;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity .2s ease
+      }
+
+      figure:hover figcaption {
+        opacity: 1
+      }
+
+      figure figcaption a {
+        font-size: calc(12px / var(--scale, 1))
+      }
+
+      figure a {
+        cursor: ne-resize;
+        pointer-events: auto;
+        user-select: none;
+        -webkit-user-drag: none
+      }
+
+      [data-tip] {
+        position: relative
+      }
+
+      [data-tip]:hover::after {
+        content: attr(data-tip);
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + .8em);
+        z-index: 999;
+        width: max-content;
+        max-width: 220px;
+        padding: .8em;
+        transform: translateX(-50%);
+        background: var(--bg);
+        border: 1px solid var(--line);
+        font-size: calc(12px / var(--scale, 1));
+        line-height: 1.6;
+        text-align: left;
+        pointer-events: none
+      }
+
+      #status {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 999;
+        transform: translate(-50%, -50%);
+        text-transform: uppercase
+      }
+
+      #status:empty {
+        display: none
+      }
+
+      #coords {
+        position: fixed;
+        bottom: 1em;
+        left: 2em;
+        z-index: 2;
+        height: 28px;
+        cursor: default
+      }
+
+      #filter {
+        position: fixed;
+        right: 2em;
+        bottom: 1em;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        width: 13em;
+        text-align: left;
+        text-transform: uppercase
+      }
+
+      #filter[open] {
+        justify-content: flex-start
+      }
+
+      #filter summary {
+        display: grid;
+        grid-template-columns: 1em 1fr;
+        align-self: flex-end;
+        order: 3;
+        width: 100%;
+        height: 28px;
+        cursor: n-resize;
+        text-align: right
+      }
+
+      #filter summary::-webkit-details-marker {
+        display: none
+      }
+
+      #filter summary::before,
+      #filter li::before {
+        text-align: left;
+        white-space: nowrap
+      }
+
+      #filter summary::before {
+        padding-left: .5em;
+        content: "+"
+      }
+
+      #filter[open] summary {
+        margin-top: 2em;
+        cursor: s-resize
+      }
+
+      #filter[open] summary::before {
+        content: "-"
+      }
+
+      #filter summary:hover .filter-label,
+      #filter li:hover .filter-label {
+        animation: flicker 2s
+      }
+
+      #filter li {
+        display: grid;
+        grid-template-columns: 1em 1fr;
+        padding: .2em 0;
+        cursor: pointer;
+        text-align: right
+      }
+
+      #filter li::before {
+        content: "[ ]"
+      }
+
+      #filter li.active::before {
+        content: "[▪]"
+      }
+
+      #info {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 2;
+        display: none;
+        grid: 45em / repeat(2, 1fr);
+        gap: 2em;
+        width: min(calc(100% - 4em), 60em);
+        height: 25em;
+        padding: 2em;
+        transform: translate(-50%, -50%);
+        background: var(--corner);
+        background-size: 4px 4px;
+        background-repeat: no-repeat;
+        counter-reset: section
+      }
+
+      #info[aria-hidden="false"] {
+        display: grid
+      }
+
+      #stage.info-open {
+        cursor: w-resize
+      }
+
+      @media (max-width: 820px) {
+        #coords {
+          display: none
+        }
+
+        #info {
+          grid: auto / 1fr;
+          height: auto;
+          background: none
+        }
+      }
+
+      @keyframes flicker { 0%, 2%, 6%, 8%, 12%, 16%, 18%, 99% { opacity: 1 } 3%, 5%, 9%, 11%, 15%, 17%, to { opacity: 0 } }
+      @keyframes fade { from { opacity: 0; transform: scale(.9) } to { opacity: 1; transform: scale(1) } }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <a id="logo" href="/"><img src="horseshoe.webp" alt="Headless Horse horseshoe logo" width="28px" height="28px"></a>
+      <nav>
+        <button data-section="work">work</button>
+        <button data-section="research" aria-current="true">research</button>
+        <button id="info-btn">info</button>
+      </nav>
+    </header>
+
+    <div id="status"></div>
+
+    <div id="viewport"><div id="stage"></div></div>
+
+    <details id="filter">
+      <summary><span class="filter-label">Filter</span></summary>
+      <ul id="filter-list"></ul>
+    </details>
+
+    <div id="coords"></div>
+
+    <article id="info" aria-hidden="true">
+      <section>
+        <h2>Info</h2>
+        <p>Headless Horse is a creative studio articulating visions across beauty, fashion and culture. Creating identities, worlds and experiences for people and brands we admire, who dare to run wild.</p>
+        <p>According to folklore, blacksmiths hung battle worn horseshoes upside down over the forge, believing this would bring good fortune to their craft.</p>
+        <p id="info-hours"></p>
+        <h2>Connect</h2>
+        <ul>
+          <li><a href="mailto:mail@headless.horse" data-more="Let's run ·𖥔 ݁˖">mail@headless.horse</a></li>
+          <li><a href="https://instagram.com/headless.horse" target="_blank" data-more="Instagram">@headless.horse</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Clients</h2>
+        <p>
+          Nike, LYMA, Charlotte Tilbury, Harley-Davidson, Rolls-Royce, Spotify, Nespresso, Jordan, Yves Saint Laurent Beauty, TEAM DR JOSEPH
+        </p>
+        <h2>Press</h2>
+        <ul>
+          <li><a href="https://vogue.co.uk/beauty/gallery/best-mood-supplements#:~:text=lyma" target="_blank" rel="noreferrer" data-more="LYMA, 16.11.20">Vogue</a><a href="https://vogue.co.uk/article/best-multivitamins-for-women#:~:text=lyma" target="_blank" rel="noreferrer" data-more="LYMA, 10.05.24"> / 2</a></li>
+          <li><a href="https://forbes.com/sites/biancasalonga/2022/09/07/meet-the-gold-standard-and-supermodel-health-supplement-from-lyma" target="_blank" rel="noreferrer" data-more="LYMA, 31.12.20">Forbes</a></li>
+          <li><a href="https://ft.com/content/08078211-638b-4326-ac2e-92ae2cdf65c9" target="_blank" rel="noreferrer" data-more="LYMA, 07.09.22">Financial Times</a></li>
+          <li><a href="https://the-brandidentity.com/project/how-headless-horse-reimagined-team-dr-josephs-identity-and-packaging-for-a-sustainable-future" target="_blank" rel="noreferrer" data-more="TEAM DR JOSEPH, 13.07.23">The Brand Identity</a></li>
+          <li><a href="https://commarts.com/webpicks/team-dr-joseph" target="_blank" rel="noreferrer" data-more="TEAM DR JOSEPH, 16.02.23">Communication Arts</a></li>
+          <li><a href="https://scottishdesignawards.com/2023/graphic-packaging-product/team-dr-joseph/" target="_blank" rel="noreferrer" data-more="TEAM DR JOSEPH, 29.06.23">Scottish Design Awards</a></li>
+          <li><a href="https://hypebeast.com/2021/3/billelis-mints-macabre-artworks-for-upcoming-nft-release" target="_blank" rel="noreferrer" data-more="Billelis: In Memoriam, 19.03.21">Hypebeast</a><a href="https://hypebeast.com/2017/11/nike-air-max-1-marble-alasdair-thomson" target="_blank" rel="noreferrer" data-more="Nike: Air Max Day, 19.03.21"> / 2</a></li>
+          <li><a href="https://highsnobiety.com/p/marble-air-max-1-alasdair-thomson/" target="_blank" rel="noreferrer" data-more="Nike: Air Max Day, 05.11.17">Highsnobiety</a></li>
+        </ul>
+      </section>
+    </article>
+
+    <script>
+      /* ------------------- Helpers ------------------- */
+
+      const M = {
+        clamp: (v, min, max) => Math.min(max, Math.max(min, v)),
+        map: (x, a, b, c, d) => c + ((d - c) * (x - a)) / (b - a) || 0,
+        lerp: (a, b, t) => a + (b - a) * t,
+      };
+
+      function type(el, text, speed = 40) {
+        clearTimeout(el._t);
+        el.textContent = '';
+        let i = 0;
+        const step = () => {
+          if (i >= text.length) return;
+          el.textContent += text[i++];
+          el._t = setTimeout(step, speed);
+        };
+        step();
+      }
+
+      function scramble(el, text, duration = 700, tick = 28) {
+        const glyphs = '01</>[]{}#*+=-_?';
+        const frames = Math.max(1, Math.round(duration / tick));
+        let frame = 0;
+        clearTimeout(el._t);
+        const step = () => {
+          frame++;
+          const progress = frame / frames;
+          el.textContent = text.split('').map((ch, i) => (ch === ' ' || i / text.length < progress) ? ch : glyphs[Math.floor(Math.random() * glyphs.length)]).join('');
+          if (frame >= frames) { el.textContent = text; return; }
+          el._t = setTimeout(step, tick);
+        };
+        step();
+      }
+
+      function bootIntro() {
+        const targets = [...document.querySelectorAll('nav button'), document.querySelector('#filter .filter-label'), document.getElementById('coords')].filter(Boolean);
+        targets.forEach((el, i) => {
+          const text = el.textContent.trim();
+          if (text) setTimeout(() => scramble(el, text, 700 + i * 40, 28), i * 90);
+        });
+      }
+
+      /* ------------------- Pinterest ------------------- */
+
+      const CONTENT = {
+        workBoard: 'studio',
+        refTags: ['direction', 'graphic', 'wellness', 'print', 'space', 'style'],
+      };
+
+      async function fetchPins(endpoint, label) {
+        const res = await fetch(`https://widgets.pinterest.com/v3/pidgets/${endpoint}?limit=100`);
+        if (!res.ok) throw new Error('network error');
+        const json = await res.json();
+        const pins = json?.data?.pins;
+        console.log(`[pinterest] ${label}: ${Array.isArray(pins) ? pins.length + ' pins' : 'invalid response'}`, json);
+        if (!Array.isArray(pins)) throw new Error('unexpected response');
+        return pins;
+      }
+
+      /* ------------------- Board ------------------- */
+
+      class Board {
+        constructor() {
+          this.list = document.getElementById('filter-list');
+          this.filter = document.getElementById('filter');
+          this.stage = document.getElementById('stage');
+          this.viewport = document.getElementById('viewport');
+          this.status = document.getElementById('status');
+          this.coords = document.getElementById('coords');
+
+          this.section = 'research';
+          this.active = new Set(['All']);
+          this.cache = {};
+          this.entries = [];
+          this.scale = 1;
+          this.minScale = .8;
+          this.maxScale = 2;
+          this.tx = this.ty = this.tTx = this.tTy = this.xMin = this.yMin = this.xMax = this.yMax = 0;
+          this.vx = this.vy = 0;
+          this.mode = 'follow';
+          this.manual = false;
+          this.infoOpen = false;
+          this.firstLoad = true;
+
+          this.list.addEventListener('click', e => {
+            const item = e.target.closest('li');
+            if (item) this.toggle(item.dataset.tag);
+          });
+
+          this.buildList();
+          this.move();
+          this.refresh();
+        }
+
+      /* ------------------- Filter ------------------- */
+
+        groupOf(tag) {
+          return tag === 'Work' ? 'work' : 'research';
+        }
+
+        buildList() {
+          this.list.innerHTML = this.section === 'work' ? ''
+            : ['All', ...CONTENT.refTags].map(tag => `<li data-tag="${tag}"><span class="filter-label">${tag}</span></li>`).join('');
+          this.paint();
+        }
+
+        setSection(section) {
+          document.querySelectorAll('nav [data-section]').forEach(b => b.toggleAttribute('aria-current', b.dataset.section === section));
+          this.filter.style.display = section === 'work' ? 'none' : '';
+          if (section === 'research') this.filter.open = true;
+          if (section === this.section) return;
+          this.section = section;
+          this.active = new Set([section === 'work' ? 'Work' : 'All']);
+          this.buildList();
+          this.refresh();
+        }
+
+        toggle(tag) {
+          const allTag = this.section === 'work' ? 'Work' : 'All';
+          if (tag === allTag) this.active = new Set([tag]);
+          else {
+            this.active.delete(allTag);
+            this.active.has(tag) ? this.active.delete(tag) : this.active.add(tag);
+            if (!this.active.size) this.active.add(allTag);
+          }
+          this.paint();
+          this.refresh();
+        }
+
+        paint() {
+          [...this.list.children].forEach(item => item.classList.toggle('active', this.active.has(item.dataset.tag)));
+        }
+
+      /* ------------------- Fetching ------------------- */
+
+        async fetchTag(tag) {
+          if (this.cache[tag]) return this.cache[tag];
+          const endpoint = tag === 'All' ? 'users/headlesshorse/pins/'
+            : tag === 'Work' ? `boards/headlesshorse/${CONTENT.workBoard}/pins/`
+            : `boards/headlesshorse/${tag}/pins/`;
+          const pins = await fetchPins(endpoint, tag);
+          return (this.cache[tag] = tag === 'Work' ? pins : pins.filter(pin => !pin.board?.url?.includes(CONTENT.workBoard)));
+        }
+
+        async refresh() {
+          scramble(this.status, 'loading…', 700, 28);
+          try {
+            const tags = [...this.active];
+            const feeds = await Promise.all(tags.map(tag => this.fetchTag(tag)));
+            const byId = new Map();
+            feeds.forEach((pins, i) => pins.forEach(pin => {
+              byId.has(pin.id) ? byId.get(pin.id).tags.push(tags[i]) : byId.set(pin.id, { pin, tags: [tags[i]] });
+            }));
+
+            const entries = [...byId.values()];
+            if (!entries.length) throw new Error('empty feed');
+
+            clearTimeout(this.status._t);
+            this.status.textContent = '';
+            this.entries = entries;
+            this.scatter(entries);
+          } catch (e) {
+            clearTimeout(this.status._t);
+            type(this.status, 'Signal Lost: ' + e.message, 14);
+          }
+        }
+
+      /* ------------------- Layout ------------------- */
+
+        resolveSource(pin) {
+          const candidates = [pin?.link, pin?.url, pin?.pinterest_url, pin?.source?.url, pin?.source?.link].filter(Boolean);
+          for (const value of candidates) {
+            try {
+              const url = new URL(value.startsWith('http') ? value : `https://${value}`);
+              const host = url.hostname.replace(/^www\./i, '');
+              const path = url.pathname && url.pathname !== '/' ? url.pathname : '';
+              return { href: url.toString(), label: `Source: ${host}${path}` };
+            } catch { /* try the next candidate */ }
+          }
+          return { href: `https://pinterest.com/pin/${pin?.id}`, label: 'Source: Pinterest' };
+        }
+
+        scatter(entries) {
+          this.stage.innerHTML = '';
+          const shuffled = entries.slice().sort(() => Math.random() - .5);
+          const vw = this.viewport.clientWidth, vh = this.viewport.clientHeight;
+          const factor = 1.95 + (this.active.size - 1) * .25;
+          const width = Math.max(vw * factor, 1600), height = Math.max(vh * factor, 1000);
+          this.stage.style.width = `${width}px`;
+          this.stage.style.height = `${height}px`;
+
+          const aspect = (width / height) * (.85 + Math.random() * .3);
+          const cols = Math.ceil(Math.sqrt(shuffled.length * aspect));
+          const rows = Math.ceil(shuffled.length / cols);
+          const cellW = width / cols, cellH = height / rows;
+          const cells = [];
+          for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) cells.push([c, r]);
+          cells.sort(() => Math.random() - .5);
+
+          shuffled.forEach(({ pin, tags }, i) => {
+            const image = pin.images?.['237x']?.url || pin.images?.['564x']?.url || pin.images?.orig?.url || Object.values(pin.images || {})[0]?.url;
+            if (!image) return;
+            const source = this.resolveSource(pin);
+            const desc = (pin.description || pin.grid_title || '').replace(/\s+/g, ' ').trim().slice(0, 160);
+            const own = this.groupOf(tags[0]) === 'work';
+            const [c, r] = cells[i % cells.length];
+            const x = c * cellW + cellW / 2 + (Math.random() - .5) * cellW * .62;
+            const y = r * cellH + cellH / 2 + (Math.random() - .5) * cellH * .62;
+            const size = 130 + Math.random() * 110;
+            const rot = (Math.random() * 6 - 3).toFixed(2);
+            const delay = (Math.random() * (this.firstLoad ? 1.5 : .5)).toFixed(2);
+            const duration = this.firstLoad ? 1.6 : 1;
+
+            const fig = document.createElement('figure');
+            fig.className = own ? 'own' : '';
+            if (own && desc) fig.dataset.tip = desc;
+            fig.dataset.rot = rot;
+            fig.style.cssText = `left:${x}px; top:${y}px; width:${size}px; z-index:${Math.floor(Math.random() * 100)}; transform:translate(-50%,-50%) rotate(${rot}deg)`;
+            fig.innerHTML = `<img src="${image}" loading="lazy" alt="" draggable="false" style="animation-delay:${delay}s; animation-duration:${duration}s"><figcaption><a href="${source.href}" target="_blank" rel="noopener" draggable="false">${source.label}</a></figcaption>`;
+            this.stage.appendChild(fig);
+          });
+
+          this.firstLoad = false;
+
+          const dropped = shuffled.length - this.stage.children.length;
+          if (dropped) console.log(`[pinterest] ${dropped} of ${shuffled.length} pins had no usable image`);
+
+          this.scale = 1;
+          this.bounds();
+          this.tx = this.tTx = this.xMin / 2;
+          this.ty = this.tTy = this.yMin / 2;
+          this.apply();
+        }
+
+        bounds() {
+          const vw = this.viewport.clientWidth, vh = this.viewport.clientHeight;
+          const w = this.stage.offsetWidth * this.scale, h = this.stage.offsetHeight * this.scale;
+          this.xMin = Math.min(0, vw - w);
+          this.yMin = Math.min(0, vh - h);
+          this.xMax = Math.max(0, vw - w);
+          this.yMax = Math.max(0, vh - h);
+          this.tx = M.clamp(this.tx, this.xMin, this.xMax);
+          this.ty = M.clamp(this.ty, this.yMin, this.yMax);
+          this.tTx = M.clamp(this.tTx, this.xMin, this.xMax);
+          this.tTy = M.clamp(this.tTy, this.yMin, this.yMax);
+        }
+
+        apply() {
+          this.stage.style.transform = `translate(${this.tx}px, ${this.ty}px) scale(${this.scale})`;
+          this.stage.style.setProperty('--scale', this.scale);
+          const x = Math.round((this.viewport.clientWidth / 2 - this.tx) / this.scale);
+          const y = Math.round((this.viewport.clientHeight / 2 - this.ty) / this.scale);
+          this.coords.textContent = `X ${String(x).padStart(4, '0')} · Y ${String(y).padStart(4, '0')} · ${Math.round(this.scale * 100)}%`;
+        }
+
+        zoomTo(target, onDone) {
+          const step = () => {
+            this.scale = M.lerp(this.scale, target, .15);
+            this.bounds();
+            this.apply();
+            if (Math.abs(this.scale - target) > .01) requestAnimationFrame(step);
+            else {
+              this.scale = target;
+              this.bounds();
+              this.apply();
+              // settling at the neutral scale should mean settling into
+              // ambient follow, not staying stuck in whatever mode was
+              // active before - unless the user explicitly locked one
+              if (!this.manual) this.mode = target > 1 ? 'drag' : 'follow';
+              onDone?.();
+            }
+          };
+          step();
+        }
+
+      /* ------------------- Movement ------------------- */
+
+        move() {
+          let dragging = false, startX = 0, startY = 0, startTx = 0, startTy = 0;
+
+          const setMode = mode => {
+            this.mode = mode;
+            this.viewport.style.cursor = mode === 'drag' ? 'grab' : 'default';
+          };
+
+          const track = e => {
+            if (this.infoOpen || this.mode !== 'follow') return;
+            const { clientX, clientY } = e.touches?.[0] || e;
+            const followX = this.xMin < 0 ? this.xMin : 0;
+            const followY = this.yMin < 0 ? this.yMin : 0;
+            this.tTx = M.clamp(M.map(clientX, 0, this.viewport.clientWidth, 0, followX), this.xMin, this.xMax);
+            this.tTy = M.clamp(M.map(clientY, 0, this.viewport.clientHeight, 0, followY), this.yMin, this.yMax);
+          };
+          window.addEventListener('mousemove', track);
+          window.addEventListener('touchmove', track, { passive: true });
+
+          this.viewport.addEventListener('pointerdown', e => {
+            if (this.infoOpen || this.mode !== 'drag') return;
+            dragging = true;
+            startX = e.clientX; startY = e.clientY;
+            startTx = this.tx; startTy = this.ty;
+            this.viewport.style.cursor = 'grabbing';
+          });
+          window.addEventListener('pointermove', e => {
+            if (this.infoOpen || !dragging) return;
+            this.tx = this.tTx = M.clamp(startTx + (e.clientX - startX), this.xMin, this.xMax);
+            this.ty = this.tTy = M.clamp(startTy + (e.clientY - startY), this.yMin, this.yMax);
+          });
+          window.addEventListener('pointerup', () => {
+            dragging = false;
+            if (this.mode === 'drag' && !this.infoOpen) this.viewport.style.cursor = 'grab';
+          });
+
+          window.addEventListener('keydown', e => {
+            if (this.infoOpen || e.key.toLowerCase() !== 'd') return;
+            this.manual = true;
+            setMode(this.mode === 'follow' ? 'drag' : 'follow');
+          });
+
+          this.viewport.addEventListener('wheel', e => {
+            if (this.infoOpen) return;
+            e.preventDefault();
+            const rect = this.viewport.getBoundingClientRect();
+            const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+            const scale = M.clamp(this.scale - e.deltaY * .0015, this.minScale, this.maxScale);
+            this.tx = this.tTx = mx - ((mx - this.tx) / this.scale) * scale;
+            this.ty = this.tTy = my - ((my - this.ty) / this.scale) * scale;
+            this.scale = scale;
+            if (!this.manual) setMode(scale >= 1 ? 'drag' : 'follow');
+            this.bounds();
+            this.apply();
+          }, { passive: false });
+
+          const loop = () => {
+            if (this.infoOpen) {
+              this.tx += this.vx;
+              this.ty += this.vy;
+              this.vx *= .86;
+              this.vy *= .86;
+              this.bounds();
+              this.apply();
+              return requestAnimationFrame(loop);
+            }
+            const nextTx = M.lerp(this.tx, this.tTx, .045);
+            const nextTy = M.lerp(this.ty, this.tTy, .045);
+            this.vx = nextTx - this.tx;
+            this.vy = nextTy - this.ty;
+            this.tx = nextTx;
+            this.ty = nextTy;
+            this.apply();
+            requestAnimationFrame(loop);
+          };
+          requestAnimationFrame(loop);
+
+          let resizeTimer;
+          window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => { this.bounds(); if (this.entries.length) this.scatter(this.entries); }, 200);
+          });
+        }
+      }
+
+      /* ------------------- Info ------------------- */
+
+      function setupInfo(board) {
+        const overlay = document.getElementById('info');
+        const btn = document.getElementById('info-btn');
+        const hours = document.getElementById('info-hours');
+
+        const studioHours = () => {
+          const now = new Date(), day = now.getUTCDay(), hour = now.getUTCHours() + 1;
+          return (day === 0 || day === 6) || (day === 5 && hour >= 18)
+            ? 'we are out of office and will return monday morning'
+            : hour >= 9 && hour < 18
+              ? 'the studio is open today from 09:00-18:00'
+              : 'we are out of office. we will be open tomorrow, 09:00-18:00';
+        };
+
+        function partImages(opening) {
+          const cx = (window.innerWidth / 2 - board.tx) / board.scale;
+          const cy = (window.innerHeight / 2 - board.ty) / board.scale;
+          const radius = (Math.min(window.innerWidth, window.innerHeight) * .5 + 400) / board.scale;
+
+          board.stage.querySelectorAll('figure').forEach(fig => {
+            const rot = fig.dataset.rot || '0';
+            const rest = () => { fig.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`; fig.style.opacity = ''; };
+            if (!opening) return rest();
+
+            const halfSize = (parseFloat(fig.style.width) || 0) / 2;
+            const dx = parseFloat(fig.style.left) - cx;
+            const dy = parseFloat(fig.style.top) - cy;
+            const dist = Math.hypot(dx, dy);
+            if (dist > radius + halfSize) return rest();
+
+            const push = (radius - dist) + halfSize + 80 / board.scale;
+            fig.style.transform = `translate(calc(-50% + ${(dx / (dist || 1)) * push}px), calc(-50% + ${(dy / (dist || 1)) * push}px)) rotate(${rot}deg)`;
+            fig.style.opacity = '0';
+          });
+        }
+
+        const open = () => {
+          document.body.classList.add('info-open');
+          board.vx = (board.tTx - board.tx) * .25;
+          board.vy = (board.tTy - board.ty) * .25;
+          board.infoOpen = true;
+          board.viewport.style.cursor = 'default';
+          board.stage.classList.add('info-open');
+          board.zoomTo(1, () => {
+            partImages(true);
+            setTimeout(() => {
+              overlay.setAttribute('aria-hidden', 'false');
+              hours.textContent = studioHours();
+            }, 700);
+          });
+        };
+
+        const dismiss = () => {
+          overlay.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('info-open');
+          board.infoOpen = false;
+          board.viewport.style.cursor = board.mode === 'drag' ? 'grab' : 'default';
+          partImages(false);
+          setTimeout(() => board.stage.classList.remove('info-open'), 700);
+        };
+
+        btn.addEventListener('click', open);
+        document.addEventListener('click', e => {
+          if (overlay.getAttribute('aria-hidden') === 'false' && !overlay.contains(e.target) && e.target !== btn) dismiss();
+        });
+        window.addEventListener('keydown', e => e.key === 'Escape' && dismiss());
+      }
+
+      /* ------------------- Boot ------------------- */
+
+      const board = new Board();
+      bootIntro();
+      setupInfo(board);
+      document.querySelectorAll('nav [data-section]').forEach(b => b.addEventListener('click', () => board.setSection(b.dataset.section)));
+    </script>
+  </body>
 </html>
