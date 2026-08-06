@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HEADLESS HORSE</title>
-    <meta name="description" content="Let's run ·𖥔 ݁˖">
+    <meta name="description" content="Run wild ·𖥔 ݁˖">
     <meta name="theme-color" content="#000000">
     <meta property="og:title" content="HEADLESS HORSE">
-    <meta property="og:description" content="Let's run ·𖥔 ݁˖">
+    <meta property="og:description" content="Run wild ·𖥔 ݁˖">
     <meta property="og:image" content="https://headless.horse/sharecard.webp">
     <meta property="og:url" content="https://headless.horse">
     <link rel="icon" href="horseshoe.webp">
@@ -136,10 +136,6 @@
         -webkit-user-drag: none
       }
 
-      figure.own img {
-        filter: none
-      }
-
       figure figcaption {
         position: absolute;
         left: 2em;
@@ -166,28 +162,6 @@
         pointer-events: auto;
         user-select: none;
         -webkit-user-drag: none
-      }
-
-      [data-tip] {
-        position: relative
-      }
-
-      [data-tip]:hover::after {
-        content: attr(data-tip);
-        position: absolute;
-        left: 50%;
-        bottom: calc(100% + .8em);
-        z-index: 999;
-        width: max-content;
-        max-width: 220px;
-        padding: .8em;
-        transform: translateX(-50%);
-        background: var(--bg);
-        border: 1px solid var(--line);
-        font-size: calc(12px / var(--scale, 1));
-        line-height: 1.6;
-        text-align: left;
-        pointer-events: none
       }
 
       #status {
@@ -285,26 +259,47 @@
         content: "[▪]"
       }
 
+      #filter li:hover::before {
+        content: "[▪]"
+      }
+
       #info {
         position: fixed;
         top: 50%;
         left: 50%;
         z-index: 2;
-        display: none;
+        display: grid;
         grid: 45em / repeat(2, 1fr);
         gap: 2em;
-        width: min(calc(100% - 4em), 60em);
-        height: 25em;
+        width: 30px;
+        height: 30px;
         padding: 2em;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
         transform: translate(-50%, -50%);
         background: var(--corner);
         background-size: 4px 4px;
         background-repeat: no-repeat;
-        counter-reset: section
+        counter-reset: section;
+        transition: opacity .2s ease, width .5s ease .2s, height .5s ease .7s
+      }
+
+      #info section {
+        opacity: 0;
+        transition: opacity .3s ease
       }
 
       #info[aria-hidden="false"] {
-        display: grid
+        opacity: 1;
+        width: min(calc(100% - 4em), 60em);
+        height: 25em;
+        pointer-events: auto
+      }
+
+      #info[aria-hidden="false"] section {
+        opacity: 1;
+        transition: opacity .3s ease 1.2s
       }
 
       #stage.info-open {
@@ -318,8 +313,10 @@
 
         #info {
           grid: auto / 1fr;
+          width: calc(100% - 4em);
           height: auto;
-          background: none
+          background: none;
+          transition: none
         }
       }
 
@@ -332,9 +329,9 @@
     <header>
       <a id="logo" href="/"><img src="horseshoe.webp" alt="Headless Horse horseshoe logo" width="28px" height="28px"></a>
       <nav>
-        <button data-section="work">work</button>
-        <button data-section="research" aria-current="true">research</button>
-        <button id="info-btn">info</button>
+        <button data-section="work">Work</button>
+        <button data-section="research" aria-current="true">Research</button>
+        <button id="info-btn">Info</button>
       </nav>
     </header>
 
@@ -352,21 +349,16 @@
     <article id="info" aria-hidden="true">
       <section>
         <h2>Info</h2>
-        <p>Headless Horse is a creative studio articulating visions across beauty, fashion and culture. Creating identities, worlds and experiences for people and brands we admire, who dare to run wild.</p>
-        <p>According to folklore, blacksmiths hung battle worn horseshoes upside down over the forge, believing this would bring good fortune to their craft.</p>
-        <p id="info-hours"></p>
+        <p>Headless Horse is a creative studio articulating visions across beauty, fashion and culture. Creating identities, worlds and experiences for people and brands we admire, who dare to run wild. <span id="info-hours"></span></p>
         <h2>Connect</h2>
         <ul>
           <li><a href="mailto:mail@headless.horse" data-more="Let's run ·𖥔 ݁˖">mail@headless.horse</a></li>
           <li><a href="https://instagram.com/headless.horse" target="_blank" data-more="Instagram">@headless.horse</a></li>
         </ul>
       </section>
-
       <section>
         <h2>Clients</h2>
-        <p>
-          Nike, LYMA, Charlotte Tilbury, Harley-Davidson, Rolls-Royce, Spotify, Nespresso, Jordan, Yves Saint Laurent Beauty, TEAM DR JOSEPH
-        </p>
+        <p>Nike, LYMA, Charlotte Tilbury, Harley-Davidson, Rolls-Royce, Spotify, Nespresso, TEAM DR JOSEPH, Jordan, Yves Saint Laurent Beauty, JD Sports, Kiehl's, NBA.</p>
         <h2>Press</h2>
         <ul>
           <li><a href="https://vogue.co.uk/beauty/gallery/best-mood-supplements#:~:text=lyma" target="_blank" rel="noreferrer" data-more="LYMA, 16.11.20">Vogue</a><a href="https://vogue.co.uk/article/best-multivitamins-for-women#:~:text=lyma" target="_blank" rel="noreferrer" data-more="LYMA, 10.05.24"> / 2</a></li>
@@ -428,13 +420,17 @@
       /* ------------------- Pinterest ------------------- */
 
       const CONTENT = {
-        workBoard: 'studio',
-        refTags: ['direction', 'graphic', 'wellness', 'print', 'space', 'style'],
+        research: ['direction', 'graphic', 'print', 'wellness', 'space', 'style'],
+        work: ['studio'],
       };
 
       async function fetchPins(endpoint, label) {
+        console.log(`[pinterest] requesting ${label}:`, `https://widgets.pinterest.com/v3/pidgets/${endpoint}?limit=100`);
         const res = await fetch(`https://widgets.pinterest.com/v3/pidgets/${endpoint}?limit=100`);
-        if (!res.ok) throw new Error('network error');
+        if (!res.ok) {
+          console.warn(`[pinterest] ${label}: HTTP ${res.status}`);
+          throw new Error('network error');
+        }
         const json = await res.json();
         const pins = json?.data?.pins;
         console.log(`[pinterest] ${label}: ${Array.isArray(pins) ? pins.length + ' pins' : 'invalid response'}`, json);
@@ -479,29 +475,24 @@
 
       /* ------------------- Filter ------------------- */
 
-        groupOf(tag) {
-          return tag === 'Work' ? 'work' : 'research';
-        }
-
         buildList() {
-          this.list.innerHTML = this.section === 'work' ? ''
-            : ['All', ...CONTENT.refTags].map(tag => `<li data-tag="${tag}"><span class="filter-label">${tag}</span></li>`).join('');
+          const allTitle = `All ${this.section} filters`;
+          this.list.innerHTML = ['All', ...CONTENT[this.section]]
+            .map(tag => `<li data-tag="${tag}"${tag === 'All' ? ` title="${allTitle}"` : ''}><span class="filter-label">${tag}</span></li>`).join('');
           this.paint();
         }
 
         setSection(section) {
           document.querySelectorAll('nav [data-section]').forEach(b => b.toggleAttribute('aria-current', b.dataset.section === section));
-          this.filter.style.display = section === 'work' ? 'none' : '';
-          if (section === 'research') this.filter.open = true;
           if (section === this.section) return;
           this.section = section;
-          this.active = new Set([section === 'work' ? 'Work' : 'All']);
+          this.active = new Set(['All']);
           this.buildList();
           this.refresh();
         }
 
         toggle(tag) {
-          const allTag = this.section === 'work' ? 'Work' : 'All';
+          const allTag = 'All';
           if (tag === allTag) this.active = new Set([tag]);
           else {
             this.active.delete(allTag);
@@ -520,22 +511,23 @@
 
         async fetchTag(tag) {
           if (this.cache[tag]) return this.cache[tag];
-          const endpoint = tag === 'All' ? 'users/headlesshorse/pins/'
-            : tag === 'Work' ? `boards/headlesshorse/${CONTENT.workBoard}/pins/`
-            : `boards/headlesshorse/${tag}/pins/`;
-          const pins = await fetchPins(endpoint, tag);
-          return (this.cache[tag] = tag === 'Work' ? pins : pins.filter(pin => !pin.board?.url?.includes(CONTENT.workBoard)));
+          const pins = await fetchPins(`boards/headlesshorse/${tag}/pins/`, tag);
+          return (this.cache[tag] = pins);
         }
 
         async refresh() {
           scramble(this.status, 'loading…', 700, 28);
           try {
-            const tags = [...this.active];
+            const tags = this.active.has('All') ? CONTENT[this.section] : [...this.active];
             const feeds = await Promise.all(tags.map(tag => this.fetchTag(tag)));
             const byId = new Map();
-            feeds.forEach((pins, i) => pins.forEach(pin => {
-              byId.has(pin.id) ? byId.get(pin.id).tags.push(tags[i]) : byId.set(pin.id, { pin, tags: [tags[i]] });
+            let missingIds = 0;
+            feeds.forEach((pins, i) => pins.forEach((pin, idx) => {
+              if (pin.id == null) missingIds++;
+              const key = pin.id ?? `${tags[i]}-${idx}`;
+              byId.has(key) ? byId.get(key).tags.push(tags[i]) : byId.set(key, { pin, tags: [tags[i]] });
             }));
+            if (missingIds) console.log(`[pinterest] ${missingIds} pin(s) had no 'id' field — used positional fallback key`);
 
             const entries = [...byId.values()];
             if (!entries.length) throw new Error('empty feed');
@@ -552,6 +544,16 @@
 
       /* ------------------- Layout ------------------- */
 
+        resolveImage(pin) {
+          const preferredSizes = ['564x', '474x', '237x', '236x'];
+          for (const key of preferredSizes) {
+            const url = pin.images?.[key]?.url;
+            if (url) return url;
+          }
+          const fallback = Object.values(pin.images || {}).find(v => v?.url);
+          return fallback?.url;
+        }
+
         resolveSource(pin) {
           const candidates = [pin?.link, pin?.url, pin?.pinterest_url, pin?.source?.url, pin?.source?.link].filter(Boolean);
           for (const value of candidates) {
@@ -560,14 +562,15 @@
               const host = url.hostname.replace(/^www\./i, '');
               const path = url.pathname && url.pathname !== '/' ? url.pathname : '';
               return { href: url.toString(), label: `Source: ${host}${path}` };
-            } catch { /* try the next candidate */ }
+            } catch { }
           }
           return { href: `https://pinterest.com/pin/${pin?.id}`, label: 'Source: Pinterest' };
         }
 
         scatter(entries) {
           this.stage.innerHTML = '';
-          const shuffled = entries.slice().sort(() => Math.random() - .5);
+          const MAX_PINS = 60; // keeps density comparable to the old single-fetch 'All', regardless of how many boards got merged
+          const shuffled = entries.slice().sort(() => Math.random() - .5).slice(0, MAX_PINS);
           const vw = this.viewport.clientWidth, vh = this.viewport.clientHeight;
           const factor = 1.95 + (this.active.size - 1) * .25;
           const width = Math.max(vw * factor, 1600), height = Math.max(vh * factor, 1000);
@@ -583,11 +586,12 @@
           cells.sort(() => Math.random() - .5);
 
           shuffled.forEach(({ pin, tags }, i) => {
-            const image = pin.images?.['237x']?.url || pin.images?.['564x']?.url || pin.images?.orig?.url || Object.values(pin.images || {})[0]?.url;
-            if (!image) return;
+            const image = this.resolveImage(pin);
+            if (!image) {
+              console.log('[pinterest] pin had no usable image, keys:', Object.keys(pin.images || {}), pin);
+              return;
+            }
             const source = this.resolveSource(pin);
-            const desc = (pin.description || pin.grid_title || '').replace(/\s+/g, ' ').trim().slice(0, 160);
-            const own = this.groupOf(tags[0]) === 'work';
             const [c, r] = cells[i % cells.length];
             const x = c * cellW + cellW / 2 + (Math.random() - .5) * cellW * .62;
             const y = r * cellH + cellH / 2 + (Math.random() - .5) * cellH * .62;
@@ -597,8 +601,6 @@
             const duration = this.firstLoad ? 1.6 : 1;
 
             const fig = document.createElement('figure');
-            fig.className = own ? 'own' : '';
-            if (own && desc) fig.dataset.tip = desc;
             fig.dataset.rot = rot;
             fig.style.cssText = `left:${x}px; top:${y}px; width:${size}px; z-index:${Math.floor(Math.random() * 100)}; transform:translate(-50%,-50%) rotate(${rot}deg)`;
             fig.innerHTML = `<img src="${image}" loading="lazy" alt="" draggable="false" style="animation-delay:${delay}s; animation-duration:${duration}s"><figcaption><a href="${source.href}" target="_blank" rel="noopener" draggable="false">${source.label}</a></figcaption>`;
@@ -648,9 +650,6 @@
               this.scale = target;
               this.bounds();
               this.apply();
-              // settling at the neutral scale should mean settling into
-              // ambient follow, not staying stuck in whatever mode was
-              // active before - unless the user explicitly locked one
               if (!this.manual) this.mode = target > 1 ? 'drag' : 'follow';
               onDone?.();
             }
@@ -755,16 +754,16 @@
         const studioHours = () => {
           const now = new Date(), day = now.getUTCDay(), hour = now.getUTCHours() + 1;
           return (day === 0 || day === 6) || (day === 5 && hour >= 18)
-            ? 'we are out of office and will return monday morning'
+            ? 'We are out of office and will return monday morning.'
             : hour >= 9 && hour < 18
-              ? 'the studio is open today from 09:00-18:00'
-              : 'we are out of office. we will be open tomorrow, 09:00-18:00';
+              ? 'The studio is open today from 09:00-18:00.'
+              : 'We are out of office. We will be open tomorrow, 09:00-18:00.';
         };
 
         function partImages(opening) {
           const cx = (window.innerWidth / 2 - board.tx) / board.scale;
           const cy = (window.innerHeight / 2 - board.ty) / board.scale;
-          const radius = (Math.min(window.innerWidth, window.innerHeight) * .5 + 400) / board.scale;
+          const radius = (Math.min(window.innerWidth, window.innerHeight)) / board.scale;
 
           board.stage.querySelectorAll('figure').forEach(fig => {
             const rot = fig.dataset.rot || '0';
@@ -795,7 +794,7 @@
             setTimeout(() => {
               overlay.setAttribute('aria-hidden', 'false');
               hours.textContent = studioHours();
-            }, 700);
+            }, 50);
           });
         };
 
