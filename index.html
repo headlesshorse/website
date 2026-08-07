@@ -429,7 +429,7 @@
 
       const CONTENT = {
         research: ['direction', 'graphic', 'print', 'wellness', 'space', 'style'],
-        work: ['studio'],
+        work: ['work-studio', 'work-team-dr-joseph', 'work-lyma'],
       };
 
       async function fetchPins(endpoint, label) {
@@ -481,7 +481,7 @@
         buildList() {
           const allTitle = `All ${this.section} filters`;
           this.list.innerHTML = ['All', ...CONTENT[this.section]]
-            .map(tag => `<li data-tag="${tag}"${tag === 'All' ? ` title="${allTitle}"` : ''}><span class="filter-label">${tag}</span></li>`).join('');
+            .map(tag => `<li data-tag="${tag}"${tag === 'All' ? ` title="${allTitle}"` : ''}><span class="filter-label">${tag.replace(/^work\s*/i,'').replace(/-/g,' ')}</span></li>`).join('');
           this.paint();
         }
 
