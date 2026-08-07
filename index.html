@@ -30,12 +30,12 @@
 
       ::selection {
         background: transparent;
-        color: inherit;
+        color: inherit
       }
 
       ::-moz-selection {
         background: transparent;
-        color: inherit;
+        color: inherit
       }
 
       body {
@@ -132,7 +132,7 @@
         background: var(--corner);
         background-size: 4px 4px;
         background-repeat: no-repeat;
-        transition: all .7s ease;
+        transition: all .7s ease
       }
 
       figure:hover {
@@ -255,6 +255,8 @@
         grid-template-columns: 1em 1fr;
         padding: .2em 0;
         text-align: right;
+        opacity: 0;
+        transform: translateY(10px);
         cursor: pointer
       }
 
@@ -269,6 +271,16 @@
       #filter li:hover::before {
         content: "[▪]"
       }
+
+      #filter[open] li {
+        animation: filter .3s ease forwards
+      }
+
+      #filter[open] li:nth-child(5) { animation-delay: .06s }
+      #filter[open] li:nth-child(4) { animation-delay: .12s }
+      #filter[open] li:nth-child(3) { animation-delay: .16s }
+      #filter[open] li:nth-child(2) { animation-delay: .20s }
+      #filter[open] li:nth-child(1) { animation-delay: .24s }
 
       #info {
         position: fixed;
@@ -324,6 +336,8 @@
 
       @keyframes flicker { 0%, 2%, 6%, 8%, 12%, 16%, 18%, 99% { opacity: 1 } 3%, 5%, 9%, 11%, 15%, 17%, to { opacity: 0 } }
       @keyframes fade { from { opacity: 0; transform: scale(.9) } to { opacity: 1; transform: scale(1) } }
+      @keyframes filter { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: translateY(0) } }
+
     </style>
   </head>
 
