@@ -23,7 +23,9 @@
         font: 400 12px/1.6 courier, monospace;
         color: #999;
         text-decoration: none;
-        list-style: none
+        list-style: none;
+        user-select: none;
+        -webkit-user-drag: none
       }
 
       ::selection {
@@ -130,7 +132,7 @@
         background: var(--corner);
         background-size: 4px 4px;
         background-repeat: no-repeat;
-        transition: all .7s ease
+        transition: all .7s ease;
       }
 
       figure:hover {
@@ -143,10 +145,7 @@
         width: 100%;
         height: auto;
         filter: grayscale(50%) contrast(.8) brightness(.9);
-        animation: fade 1s 7s both;
-        pointer-events: none;
-        user-select: none;
-        -webkit-user-drag: none
+        animation: fade 1s 7s both
       }
 
       figure figcaption {
@@ -171,9 +170,7 @@
 
       figure a {
         cursor: ne-resize;
-        pointer-events: auto;
-        user-select: none;
-        -webkit-user-drag: none
+        pointer-events: auto
       }
 
       #status {
