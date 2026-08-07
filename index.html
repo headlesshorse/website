@@ -19,10 +19,21 @@
       * {
         margin: 0;
         padding: 0;
-        color: #999;
+        overflow: hidden;
         font: 400 12px/1.6 courier, monospace;
+        color: #999;
         text-decoration: none;
         list-style: none
+      }
+
+      ::selection {
+        background: transparent;
+        color: inherit;
+      }
+
+      ::-moz-selection {
+        background: transparent;
+        color: inherit;
       }
 
       body {
@@ -38,10 +49,6 @@
         counter-increment: section
       }
 
-      h2~h2 {
-        margin-top: 2em
-      }
-
       a:hover {
         cursor: pointer;
         animation: flicker 2s
@@ -53,6 +60,12 @@
 
       a[data-more]:hover::after {
         content: ": " attr(data-more)
+      }
+
+      br {
+        content: "";
+        display: block;
+        margin-bottom: 2em
       }
 
       header {
@@ -75,8 +88,8 @@
       }
 
       nav button {
-        background: none;
         border: 0;
+        background: none;
         text-transform: uppercase;
         cursor: pointer
       }
@@ -96,9 +109,9 @@
         position: fixed;
         left: 0;
         right: 0;
+        z-index: 1;
         height: 140px;
-        pointer-events: none;
-        z-index: 1
+        pointer-events: none
       }
 
       #viewport::before {
@@ -141,12 +154,11 @@
         left: 2em;
         right: 2em;
         bottom: .1em;
-        overflow: hidden;
         text-align: center;
         text-overflow: ellipsis;
         white-space: nowrap;
         opacity: 0;
-        transition: opacity .2s ease
+        transition: opacity .3s ease
       }
 
       figure:hover figcaption {
@@ -210,8 +222,8 @@
         order: 3;
         width: 100%;
         height: 28px;
-        cursor: n-resize;
-        text-align: right
+        text-align: right;
+        cursor: n-resize
       }
 
       #filter summary::-webkit-details-marker {
@@ -225,8 +237,8 @@
       }
 
       #filter summary::before {
-        padding-left: .5em;
-        content: "+"
+        content: "+";
+        padding-left: .5em
       }
 
       #filter[open] summary {
@@ -247,8 +259,8 @@
         display: grid;
         grid-template-columns: 1em 1fr;
         padding: .2em 0;
-        cursor: pointer;
-        text-align: right
+        text-align: right;
+        cursor: pointer
       }
 
       #filter li::before {
@@ -268,56 +280,51 @@
         top: 50%;
         left: 50%;
         z-index: 2;
-        display: grid;
-        grid: 45em / repeat(2, 1fr);
-        gap: 2em;
-        width: 30px;
-        height: 30px;
+        width: 240px;
+        max-height: 3em;
         padding: 2em;
-        overflow: hidden;
-        opacity: 0;
-        pointer-events: none;
-        transform: translate(-50%, -50%);
         background: var(--corner);
         background-size: 4px 4px;
         background-repeat: no-repeat;
-        counter-reset: section;
-        transition: opacity .2s ease, width .5s ease .2s, height .5s ease .7s
-      }
-
-      #info section {
         opacity: 0;
-        transition: opacity .3s ease
+        transform: translate(-50%, -50%);
+        counter-reset: section;
+        transition: opacity .3s ease, width .6s ease .6s, max-height .8s ease 1.2s
       }
 
       #info[aria-hidden="false"] {
-        opacity: 1;
-        width: min(calc(100% - 4em), 60em);
-        height: 25em;
-        pointer-events: auto
+        width: 40em;
+        max-height: 60em;
+        opacity: 1
+      }
+
+      #wordmark {
+        display: block;
+        margin: 0 auto 2em;
+        opacity: 0;
+        transform: translateY(5px);
+        transition: opacity .3s ease .2
+      }
+
+      #info[aria-hidden="false"] #wordmark {
+        opacity: 1
+      }
+
+      #info section {
+        display: grid;
+        grid-template-columns: 8em 1fr;
+        grid-auto-rows: max-content;
+        gap: 2em;
+        opacity: 0;
+        transition: opacity .3s ease 1.2s
       }
 
       #info[aria-hidden="false"] section {
-        opacity: 1;
-        transition: opacity .3s ease 1.2s
+        opacity: 1
       }
 
       #stage.info-open {
         cursor: w-resize
-      }
-
-      @media (max-width: 820px) {
-        #coords {
-          display: none
-        }
-
-        #info {
-          grid: auto / 1fr;
-          width: calc(100% - 4em);
-          height: auto;
-          background: none;
-          transition: none
-        }
       }
 
       @keyframes flicker { 0%, 2%, 6%, 8%, 12%, 16%, 18%, 99% { opacity: 1 } 3%, 5%, 9%, 11%, 15%, 17%, to { opacity: 0 } }
@@ -337,28 +344,29 @@
 
     <div id="status"></div>
 
-    <div id="viewport"><div id="stage"></div></div>
+    <div id="viewport">
+      <div id="stage"></div>
+    </div>
+
+    <div id="coords"></div>
 
     <details id="filter">
       <summary><span class="filter-label">Filter</span></summary>
       <ul id="filter-list"></ul>
     </details>
 
-    <div id="coords"></div>
-
-    <article id="info" aria-hidden="true">
+    <div id="info" aria-hidden="true">
+      <img id="wordmark" src="Wordmark.svg">
       <section>
         <h2>Info</h2>
-        <p>Headless Horse is a creative studio articulating visions across beauty, fashion and culture. Creating identities, worlds and experiences for people and brands we admire, who dare to run wild. <span id="info-hours"></span></p>
+        <p>Headless Horse is a creative studio articulating visions across beauty, fashion and culture. Creating identities, worlds and experiences for people and brands we admire, who dare to run wild.<br>According to folklore, blacksmiths hung battle worn horseshoes upside down over the forge, believing this would bring good fortune to their craft.</p>
+        <h2>Clients</h2>
+        <p>Nike, LYMA, Charlotte Tilbury, Harley-Davidson, Rolls-Royce, Spotify, Nespresso, TEAM DR JOSEPH, Jordan, Yves Saint Laurent Beauty, JD Sports, Kiehl's, NBA.</p>
         <h2>Connect</h2>
         <ul>
           <li><a href="mailto:mail@headless.horse" data-more="Let's run ·𖥔 ݁˖">mail@headless.horse</a></li>
           <li><a href="https://instagram.com/headless.horse" target="_blank" data-more="Instagram">@headless.horse</a></li>
         </ul>
-      </section>
-      <section>
-        <h2>Clients</h2>
-        <p>Nike, LYMA, Charlotte Tilbury, Harley-Davidson, Rolls-Royce, Spotify, Nespresso, TEAM DR JOSEPH, Jordan, Yves Saint Laurent Beauty, JD Sports, Kiehl's, NBA.</p>
         <h2>Press</h2>
         <ul>
           <li><a href="https://vogue.co.uk/beauty/gallery/best-mood-supplements#:~:text=lyma" target="_blank" rel="noreferrer" data-more="LYMA, 16.11.20">Vogue</a><a href="https://vogue.co.uk/article/best-multivitamins-for-women#:~:text=lyma" target="_blank" rel="noreferrer" data-more="LYMA, 10.05.24"> / 2</a></li>
@@ -371,7 +379,7 @@
           <li><a href="https://highsnobiety.com/p/marble-air-max-1-alasdair-thomson/" target="_blank" rel="noreferrer" data-more="Nike: Air Max Day, 05.11.17">Highsnobiety</a></li>
         </ul>
       </section>
-    </article>
+    </div>
 
     <script>
       /* ------------------- Helpers ------------------- */
@@ -395,7 +403,7 @@
       }
 
       function scramble(el, text, duration = 700, tick = 28) {
-        const glyphs = '01</>[]{}#*+=-_?';
+        const glyphs = '01</>[]{}#*+=-_?!@%$&()^~|;:,.';
         const frames = Math.max(1, Math.round(duration / tick));
         let frame = 0;
         clearTimeout(el._t);
@@ -425,15 +433,10 @@
       };
 
       async function fetchPins(endpoint, label) {
-        console.log(`[pinterest] requesting ${label}:`, `https://widgets.pinterest.com/v3/pidgets/${endpoint}?limit=100`);
         const res = await fetch(`https://widgets.pinterest.com/v3/pidgets/${endpoint}?limit=100`);
-        if (!res.ok) {
-          console.warn(`[pinterest] ${label}: HTTP ${res.status}`);
-          throw new Error('network error');
-        }
+        if (!res.ok) throw new Error('network error');
         const json = await res.json();
         const pins = json?.data?.pins;
-        console.log(`[pinterest] ${label}: ${Array.isArray(pins) ? pins.length + ' pins' : 'invalid response'}`, json);
         if (!Array.isArray(pins)) throw new Error('unexpected response');
         return pins;
       }
@@ -454,7 +457,7 @@
           this.cache = {};
           this.entries = [];
           this.scale = 1;
-          this.minScale = .8;
+          this.minScale = .7;
           this.maxScale = 2;
           this.tx = this.ty = this.tTx = this.tTy = this.xMin = this.yMin = this.xMax = this.yMax = 0;
           this.vx = this.vy = 0;
@@ -483,6 +486,7 @@
         }
 
         setSection(section) {
+          this.filter.open = true;
           document.querySelectorAll('nav [data-section]').forEach(b => b.toggleAttribute('aria-current', b.dataset.section === section));
           if (section === this.section) return;
           this.section = section;
@@ -521,13 +525,10 @@
             const tags = this.active.has('All') ? CONTENT[this.section] : [...this.active];
             const feeds = await Promise.all(tags.map(tag => this.fetchTag(tag)));
             const byId = new Map();
-            let missingIds = 0;
             feeds.forEach((pins, i) => pins.forEach((pin, idx) => {
-              if (pin.id == null) missingIds++;
               const key = pin.id ?? `${tags[i]}-${idx}`;
               byId.has(key) ? byId.get(key).tags.push(tags[i]) : byId.set(key, { pin, tags: [tags[i]] });
             }));
-            if (missingIds) console.log(`[pinterest] ${missingIds} pin(s) had no 'id' field — used positional fallback key`);
 
             const entries = [...byId.values()];
             if (!entries.length) throw new Error('empty feed');
@@ -564,16 +565,16 @@
               return { href: url.toString(), label: `Source: ${host}${path}` };
             } catch { }
           }
-          return { href: `https://pinterest.com/pin/${pin?.id}`, label: 'Source: Pinterest' };
+          return { href: `https://pinterest.com/pin/${pin?.id}`, label: 'Source' };
         }
 
         scatter(entries) {
           this.stage.innerHTML = '';
-          const MAX_PINS = 60; // keeps density comparable to the old single-fetch 'All', regardless of how many boards got merged
-          const shuffled = entries.slice().sort(() => Math.random() - .5).slice(0, MAX_PINS);
+          const pins = 80;
+          const shuffled = entries.slice().sort(() => Math.random() - .5).slice(0, pins);
           const vw = this.viewport.clientWidth, vh = this.viewport.clientHeight;
           const factor = 1.95 + (this.active.size - 1) * .25;
-          const width = Math.max(vw * factor, 1600), height = Math.max(vh * factor, 1000);
+          const width = Math.max(vw * factor, 4000), height = Math.max(vh * factor, 2500);
           this.stage.style.width = `${width}px`;
           this.stage.style.height = `${height}px`;
 
@@ -587,10 +588,7 @@
 
           shuffled.forEach(({ pin, tags }, i) => {
             const image = this.resolveImage(pin);
-            if (!image) {
-              console.log('[pinterest] pin had no usable image, keys:', Object.keys(pin.images || {}), pin);
-              return;
-            }
+            if (!image) return;
             const source = this.resolveSource(pin);
             const [c, r] = cells[i % cells.length];
             const x = c * cellW + cellW / 2 + (Math.random() - .5) * cellW * .62;
@@ -608,9 +606,6 @@
           });
 
           this.firstLoad = false;
-
-          const dropped = shuffled.length - this.stage.children.length;
-          if (dropped) console.log(`[pinterest] ${dropped} of ${shuffled.length} pins had no usable image`);
 
           this.scale = 1;
           this.bounds();
@@ -637,7 +632,7 @@
           this.stage.style.setProperty('--scale', this.scale);
           const x = Math.round((this.viewport.clientWidth / 2 - this.tx) / this.scale);
           const y = Math.round((this.viewport.clientHeight / 2 - this.ty) / this.scale);
-          this.coords.textContent = `X ${String(x).padStart(4, '0')} · Y ${String(y).padStart(4, '0')} · ${Math.round(this.scale * 100)}%`;
+          this.coords.textContent = `X${String(Math.floor(x / 10)).padStart(3, '0')} · Y${String(Math.floor(y / 10)).padStart(3, '0')} · ${Math.round(this.scale * 100)}%`;
         }
 
         zoomTo(target, onDone) {
@@ -710,7 +705,7 @@
             this.tx = this.tTx = mx - ((mx - this.tx) / this.scale) * scale;
             this.ty = this.tTy = my - ((my - this.ty) / this.scale) * scale;
             this.scale = scale;
-            if (!this.manual) setMode(scale >= 1 ? 'drag' : 'follow');
+            if (!this.manual) setMode(scale >= 1.2 ? 'drag' : 'follow');
             this.bounds();
             this.apply();
           }, { passive: false });
@@ -749,16 +744,6 @@
       function setupInfo(board) {
         const overlay = document.getElementById('info');
         const btn = document.getElementById('info-btn');
-        const hours = document.getElementById('info-hours');
-
-        const studioHours = () => {
-          const now = new Date(), day = now.getUTCDay(), hour = now.getUTCHours() + 1;
-          return (day === 0 || day === 6) || (day === 5 && hour >= 18)
-            ? 'We are out of office and will return monday morning.'
-            : hour >= 9 && hour < 18
-              ? 'The studio is open today from 09:00-18:00.'
-              : 'We are out of office. We will be open tomorrow, 09:00-18:00.';
-        };
 
         function partImages(opening) {
           const cx = (window.innerWidth / 2 - board.tx) / board.scale;
@@ -793,7 +778,6 @@
             partImages(true);
             setTimeout(() => {
               overlay.setAttribute('aria-hidden', 'false');
-              hours.textContent = studioHours();
             }, 50);
           });
         };
@@ -812,6 +796,13 @@
           if (overlay.getAttribute('aria-hidden') === 'false' && !overlay.contains(e.target) && e.target !== btn) dismiss();
         });
         window.addEventListener('keydown', e => e.key === 'Escape' && dismiss());
+      }
+
+      /* ------------------- Mobile ------------------- */
+
+      if (window.innerWidth <= 820) {
+        document.body.innerHTML = '<a href="mailto:mail@headless.horse">mail@headless.horse</a>';
+        document.body.style.cssText = 'display:flex;align-items:center;justify-content:center;height:100svh;text-align:center;';
       }
 
       /* ------------------- Boot ------------------- */
