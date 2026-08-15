@@ -426,12 +426,16 @@
         step();
       }
 
-      function bootIntro() {
-        const targets = [...document.querySelectorAll('nav button'), document.querySelector('#filter .filter-label'), document.getElementById('coords')].filter(Boolean);
-        targets.forEach((el, i) => {
+      function staggerScramble(elements, delayStep, duration = 500, tick = 24, durationStep = 0) {
+        elements.filter(Boolean).forEach((el, i) => {
           const text = el.textContent.trim();
-          if (text) setTimeout(() => scramble(el, text, 700 + i * 40, 28), i * 90);
+          if (text) setTimeout(() => scramble(el, text, duration + i * durationStep, tick), i * delayStep);
         });
+      }
+
+      function bootIntro() {
+        const targets = [...document.querySelectorAll('nav button'), document.querySelector('#filter .filter-label'), document.getElementById('coords')];
+        staggerScramble(targets, 90, 700, 28, 40);
       }
 
       /* ------------------- Pinterest ------------------- */
@@ -441,7 +445,7 @@
         work: ['work-studio', 'work-team-dr-joseph', 'work-lyma'],
       };
 
-      async function fetchPins(endpoint, label) {
+      async function fetchPins(endpoint) {
         const res = await fetch(`https://widgets.pinterest.com/v3/pidgets/${endpoint}?limit=100`);
         if (!res.ok) throw new Error('network error');
         const json = await res.json();
@@ -480,6 +484,10 @@
             if (item) this.toggle(item.dataset.tag);
           });
 
+          this.filter.addEventListener('toggle', () => {
+            if (this.filter.open) this.scrambleFilter();
+          });
+
           this.buildList();
           this.move();
           this.refresh();
@@ -492,6 +500,11 @@
           this.list.innerHTML = ['All', ...CONTENT[this.section]]
             .map(tag => `<li data-tag="${tag}"${tag === 'All' ? ` title="${allTitle}"` : ''}><span class="filter-label">${tag.replace(/^work\s*/i,'').replace(/-/g,' ')}</span></li>`).join('');
           this.paint();
+        }
+
+        scrambleFilter() {
+          const targets = [this.filter.querySelector('summary .filter-label'), ...this.list.querySelectorAll('.filter-label')];
+          staggerScramble(targets, 60, 500, 24);
         }
 
         setSection(section) {
@@ -524,7 +537,7 @@
 
         async fetchTag(tag) {
           if (this.cache[tag]) return this.cache[tag];
-          const pins = await fetchPins(`boards/headlesshorse/${tag}/pins/`, tag);
+          const pins = await fetchPins(`boards/headlesshorse/${tag}/pins/`);
           return (this.cache[tag] = pins);
         }
 
@@ -547,7 +560,6 @@
             this.entries = entries;
             this.scatter(entries);
           } catch (e) {
-            clearTimeout(this.status._t);
             type(this.status, 'Signal Lost: ' + e.message, 14);
           }
         }
@@ -777,6 +789,7 @@
         }
 
         const open = () => {
+          board.filter.open = false;
           document.body.classList.add('info-open');
           board.vx = (board.tTx - board.tx) * .25;
           board.vy = (board.tTy - board.ty) * .25;
