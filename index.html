@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HEADLESS HORSE</title>
+    <meta name="description" content="Run wild ·𖥔 ݁˖">
+    <meta name="theme-color" content="#000000">
+    <meta property="og:title" content="HEADLESS HORSE">
+    <meta property="og:description" content="Run wild ·𖥔 ݁˖">
+    <meta property="og:image" content="https://headless.horse/card.webp">
+    <meta property="og:url" content="https://headless.horse">
+    <link rel="icon" href="logo.webp">
+    <style>
+      :root {
+        --corner: linear-gradient(to right, #999 1px, transparent 1px) 0 0, linear-gradient(to right, #999 1px, transparent 1px) 0 100%, linear-gradient(to left, #999 1px, transparent 1px) 100% 0, linear-gradient(to left, #999 1px, transparent 1px) 100% 100%, linear-gradient(to bottom, #999 1px, transparent 1px) 0 0, linear-gradient(to bottom, #999 1px, transparent 1px) 100% 0, linear-gradient(to top, #999 1px, transparent 1px) 0 100%, linear-gradient(to top, #999 1px, transparent 1px) 100% 100%
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        font: 400 11px/1.6 courier, monospace;
+        color: #999;
+        text-decoration: none;
+        list-style: none;
+        user-select: none;
+        -webkit-user-drag: none
+      }
+
+      ::selection {
+        background: transparent;
+        color: inherit
+      }
+
+      ::-moz-selection {
+        background: transparent;
+        color: inherit
+      }
+
+      body {
+        background: #000
+      }
+
+      h2 {
+        text-transform: uppercase
+      }
+
+      h2::before {
+        content: counter(section, decimal-leading-zero) ". ";
+        counter-increment: section
+      }
+
+      a:hover {
+        cursor: pointer;
+        animation: flicker 2s
+      }
+
+      a[target=_blank] {
+        cursor: ne-resize
+      }
+
+      a[data-more]:hover::after {
+        content: ": " attr(data-more)
+      }
+
+      br {
+        content: "";
+        display: block;
+        margin-bottom: 2em
+      }
+
+      header {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1em 2em
+      }
+
+      #logo:hover {
+        animation: none
+      }
+
+      nav {
+        display: flex;
+        gap: 2em
+      }
+
+      nav button {
+        border: 0;
+        background: none;
+        text-transform: uppercase;
+        cursor: pointer
+      }
+
+      nav button:hover {
+        animation: flicker 2s
+      }
+
+      #viewport {
+        position: fixed;
+        inset: 0
+      }
+
+      #viewport::before,
+      #viewport::after {
+        content: "";
+        position: fixed;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        height: 140px;
+        pointer-events: none
+      }
+
+      #viewport::before {
+        top: 0;
+        background: linear-gradient(to bottom, rgb(0, 0, 0, .8) 0%, transparent 100%)
+      }
+
+      #viewport::after {
+        bottom: 0;
+        background: linear-gradient(to top, rgb(0, 0, 0, .8) 0%, transparent 100%)
+      }
+
+      figure {
+        position: absolute;
+        padding: 2em;
+        background: var(--corner);
+        background-size: calc(4px / var(--scale, 1)) calc(4px / var(--scale, 1));
+        background-repeat: no-repeat;
+        transition: all .7s ease
+      }
+
+      figure:hover {
+        z-index: 999 !important;
+        background-size: calc(10px / var(--scale, 1)) calc(10px / var(--scale, 1))
+      }
+
+      figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        filter: grayscale(50%) contrast(.8) brightness(.9);
+        animation: fade 1s 7s both
+      }
+
+      figure figcaption {
+        position: absolute;
+        left: 2em;
+        right: 2em;
+        bottom: .1em;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity .3s ease
+      }
+
+      figure:hover figcaption {
+        opacity: 1
+      }
+
+      figure figcaption a {
+        font-size: calc(11px / var(--scale, 1));
+      }
+
+      figure a {
+        cursor: ne-resize;
+        pointer-events: auto
+      }
+
+      #status {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 999;
+        transform: translate(-50%, -50%);
+        text-transform: uppercase
+      }
+
+      #status:empty {
+        display: none
+      }
+
+      #coords {
+        position: fixed;
+        bottom: 1.7em;
+        left: 2em;
+        z-index: 2;
+        cursor: pointer
+      }
+
+      #filter {
+        position: fixed;
+        right: 2em;
+        bottom: 1.7em;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        width: 13em;
+        text-align: left;
+        text-transform: uppercase
+      }
+
+      #filter.hidden {
+        opacity: 0;
+        pointer-events: none
+      }
+
+      #filter[open] {
+        justify-content: flex-start
+      }
+
+      #filter summary {
+        display: grid;
+        grid-template-columns: 1em 1fr;
+        align-self: flex-end;
+        order: 3;
+        width: 100%;
+        text-align: right;
+        cursor: n-resize
+      }
+
+      #filter summary::-webkit-details-marker {
+        display: none
+      }
+
+      #filter summary::before,
+      #filter li::before {
+        text-align: left;
+        white-space: nowrap
+      }
+
+      #filter summary::before {
+        content: "+";
+        padding-left: .5em
+      }
+
+      #filter[open] summary {
+        margin-top: 2em;
+        cursor: s-resize
+      }
+
+      #filter[open] summary::before {
+        content: "-"
+      }
+
+      #filter summary:hover .filter-label,
+      #filter li:hover .filter-label {
+        animation: flicker 2s
+      }
+
+      #filter li {
+        display: grid;
+        grid-template-columns: 1em 1fr;
+        padding: .2em 0;
+        text-align: right;
+        opacity: 0;
+        transform: translateY(10px);
+        cursor: pointer
+      }
+
+      #filter li::before {
+        content: "[ ]"
+      }
+
+      #filter li.active::before {
+        content: "[▪]"
+      }
+
+      #filter li:hover::before {
+        content: "[▪]"
+      }
+
+      #filter[open] li {
+        animation: filter .3s ease forwards
+      }
+
+      #filter[open] li:nth-child(5) { animation-delay: .06s }
+      #filter[open] li:nth-child(4) { animation-delay: .12s }
+      #filter[open] li:nth-child(3) { animation-delay: .16s }
+      #filter[open] li:nth-child(2) { animation-delay: .20s }
+      #filter[open] li:nth-child(1) { animation-delay: .24s }
+
+      #info {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 2;
+        width: 240px;
+        max-height: 3em;
+        padding: 2em;
+        background: var(--corner);
+        background-size: 4px 4px;
+        background-repeat: no-repeat;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        counter-reset: section;
+        transition: opacity .3s ease, width .6s ease .6s, max-height .8s ease 1.2s
+      }
+
+      #info[aria-hidden="false"] {
+        width: 40em;
+        max-height: 60em;
+        opacity: 1;
+        pointer-events: auto
+      }
+
+      #wordmark {
+        display: block;
+        margin: 0 auto 2em;
+        opacity: 0;
+        transform: translateY(5px);
+        transition: opacity .3s ease .2
+      }
+
+      #info[aria-hidden="false"] #wordmark {
+        opacity: 1
+      }
+
+      #info section {
+        display: grid;
+        grid-template-columns: 8em 1fr;
+        grid-auto-rows: max-content;
+        gap: 2em;
+        opacity: 0;
+        transition: opacity .3s ease 1.2s
+      }
+
+      #info[aria-hidden="false"] section {
+        opacity: 1
+      }
+
+      @keyframes flicker { 0%, 2%, 6%, 8%, 12%, 16%, 18%, 99% { opacity: 1 } 3%, 5%, 9%, 11%, 15%, 17%, to { opacity: 0 } }
+      @keyframes fade { from { opacity: 0; transform: scale(.9) } to { opacity: 1; transform: scale(1) } }
+      @keyframes filter { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: translateY(0) } }
+
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <a id="logo" href="/"><img src="logo.webp" alt="Headless Horse logo" width="28" height="28"></a>
+      <nav>
+        <button data-section="work">Work</button>
+        <button data-section="research" aria-current="true">Research</button>
+        <button id="info-btn">Info</button>
+      </nav>
+    </header>
+
+    <div id="status"></div>
+
+    <div id="viewport">
+      <div id="stage"></div>
+    </div>
+
+    <span id="coords"></span>
+
+    <details id="filter">
+      <summary><span class="filter-label">Filter</span></summary>
+      <ul id="filter-list"></ul>
+    </details>
+
+    <div id="info" aria-hidden="true">
+      <svg id="wordmark" xmlns="http://www.w3.org/2000/svg" width="220" height="20" fill="none"><g clip-path="url(#a)"><mask id="b" width="220" height="20" x="0" y="0" maskUnits="userSpaceOnUse" style="mask-type:luminance"><path fill="#fff" d="M0 0h220v20H0z"/></mask><g mask="url(#b)"><path fill="#999" d="m219.979 14.406-1.847 5.383-.416-.1c.155-1.063-.365-.936-1.639-.936h-10.382v-.455c1.743 0 2.316-.329 2.316-1.92V3.411c0-1.567-.624-1.896-2.316-1.896v-.454h9.055c1.301 0 1.823.1 1.665-.961l.417-.101 1.847 5.384-.443.127c-1.614-3.716-2.108-3.918-6.426-3.918-1.692 0-2.421.252-2.421 1.82v5.89h3.851c1.223 0 1.508-.86 1.508-2.553h.417v5.612h-.417c0-1.82-.338-2.553-1.482-2.553h-3.877v6.573c0 1.59.495 1.819 2.421 1.819 5.619 0 6.114-.202 7.727-3.917l.443.127zm-15.975-.33c0 2.705-2.237 5.055-5.647 5.055-3.746 0-4.917-2.527-5.306-.758h-.495v-1.01l-.105-5.004h.444c.286 4.196 2.107 6.217 5.594 6.217 2.497 0 4.189-1.541 4.189-4.12 0-5.56-9.992-3.058-9.992-9.3 0-2.022 2.16-4.55 5.803-4.55 1.977 0 3.85 1.263 4.189.075h.52l.104 5.358h-.546c0-3.463-1.692-4.904-4.527-4.904-2.499 0-4.241 1.947-4.241 3.792 0 5.157 10.017 3.16 10.017 9.15zm-12.723 4.247v.404l-3.642.027-7.545-8.847h-2.785v6.446c0 1.616.546 1.971 2.55 1.971v.43h-6.505v-.43c1.743 0 2.576-.379 2.576-1.972V3.512c0-1.667-.833-2.021-2.576-2.021V1.06h7.103c3.954 0 6.114 1.644 6.114 4.195s-2.003 4.12-4.839 4.55l3.018 3.464c3.357 3.893 4.294 5.054 6.531 5.054M177.309 9.3h2.862c3.07 0 4.943-1.592 4.943-3.918 0-2.198-1.534-3.893-5.437-3.893-1.822 0-2.368.253-2.368 2.023zM164.117.605c5.153 0 9.028 3.867 9.028 9.327 0 5.459-4.397 9.2-9.028 9.2-5.151 0-9.366-3.894-9.366-9.2 0-5.307 4.735-9.327 9.366-9.327m0 17.945c4.215 0 7.389-3.362 7.389-8.618s-3.174-8.746-7.389-8.746-7.727 3.337-7.727 8.746 3.513 8.618 7.727 8.618M151.475 3.436v12.94c0 1.592.545 1.947 2.549 1.947v.43h-6.505v-.43c1.744 0 2.576-.354 2.576-1.946V9.73h-9.549v6.647c0 1.592.545 1.947 2.549 1.947v.43h-6.503v-.43c1.742 0 2.575-.354 2.575-1.946V3.437c0-1.592-.833-1.948-2.575-1.948v-.43h6.503v.43c-2.004 0-2.549.355-2.549 1.947v5.737h9.549V3.436c0-1.591-.832-1.947-2.576-1.947v-.43h6.505v.43c-2.004 0-2.549.355-2.549 1.947m-26.742 10.64c0 2.705-2.237 5.055-5.646 5.055-3.747 0-4.917-2.527-5.308-.758h-.494v-1.01l-.104-5.004h.443c.286 4.196 2.108 6.217 5.594 6.217 2.497 0 4.189-1.541 4.189-4.12 0-5.56-9.992-3.058-9.992-9.3 0-2.022 2.16-4.55 5.803-4.55 1.976 0 3.85 1.263 4.189.075h.521l.103 5.358h-.546c0-3.463-1.691-4.904-4.527-4.904-2.498 0-4.241 1.947-4.241 3.792 0 5.157 10.017 3.16 10.017 9.15zm-13.374 0c0 2.705-2.236 5.055-5.645 5.055-3.747 0-4.917-2.527-5.308-.758h-.494v-1.01l-.104-5.004h.442c.286 4.196 2.109 6.217 5.594 6.217 2.498 0 4.189-1.541 4.189-4.12 0-5.56-9.991-3.058-9.991-9.3 0-2.022 2.16-4.55 5.802-4.55 1.977 0 3.851 1.263 4.189.075h.521l.104 5.358h-.545c0-3.463-1.692-4.904-4.528-4.904-2.498 0-4.24 1.947-4.24 3.792 0 5.157 10.017 3.16 10.017 9.15zm-13.138.33-1.847 5.383-.417-.1c.156-1.063-.364-.936-1.638-.936H83.937v-.455c1.743 0 2.316-.329 2.316-1.92V3.411c0-1.567-.624-1.896-2.316-1.896v-.454h9.055c1.3 0 1.822.1 1.665-.961L95.074 0l1.847 5.384-.444.127c-1.613-3.716-2.108-3.918-6.425-3.918-1.692 0-2.421.252-2.421 1.82v5.89h3.85c1.223 0 1.51-.86 1.51-2.553h.416v5.612h-.417c0-1.82-.338-2.553-1.483-2.553h-3.876v6.573c0 1.59.495 1.819 2.42 1.819 5.62 0 6.115-.202 7.728-3.917l.443.127zm-15.012.024-1.847 5.358-.418-.1c.156-1.062-.364-.936-1.638-.936H68.924v-.455c1.743 0 2.316-.329 2.316-1.92V3.436c0-1.592-.834-1.948-2.576-1.948v-.43h6.504v.43c-2.003 0-2.549.355-2.549 1.947v12.94c0 1.592.494 1.82 2.42 1.82 5.62 0 6.114-.177 7.728-3.892zm-24.744 4.324h-7.39v-.431c1.743 0 2.577-.354 2.577-1.946V3.437c0-1.592-.885-1.948-2.576-1.948v-.43h6.661c7.077 0 10.25 2.73 10.25 8.771 0 5.687-3.642 8.922-9.523 8.922zm8.04-8.923c0-5.155-2.602-8.34-8.768-8.34-2.212 0-2.707.354-2.707 1.945v12.968c0 1.567.547 1.92 3.28 1.92 5.386 0 8.194-2.603 8.194-8.493m-16.47 8.466v.455H44.31v-.455c1.925 0 2.34 0 1.014-3.488l-.806-2.097h-7.285l-.989 2.426c-.988 2.401-1.066 3.16 1.77 3.16v.454h-5.308v-.43c1.796 0 2.133-1.264 2.993-3.362l5.047-12.31-.443-1.212c.364-.075.78-.582.885-.91h.234l5.074 13.522c1.535 4.094 1.666 4.246 3.538 4.246zM37.44 12.182h6.895l-3.33-8.846zm-4.683 2.223-1.846 5.384-.417-.1c.156-1.063-.364-.936-1.638-.936H18.475v-.455c1.742 0 2.316-.329 2.316-1.92V3.411c0-1.567-.624-1.896-2.316-1.896v-.454h9.055c1.302 0 1.822.1 1.665-.961L29.612 0l1.846 5.384-.443.127c-1.613-3.716-2.108-3.918-6.425-3.918-1.692 0-2.42.252-2.42 1.82v5.89h3.85c1.222 0 1.51-.86 1.51-2.553h.415v5.612h-.416c0-1.82-.339-2.553-1.483-2.553H22.17v6.573c0 1.59.495 1.819 2.42 1.819 5.62 0 6.114-.202 7.727-3.917l.444.127zM14.883 3.437v12.94c0 1.592.545 1.947 2.55 1.947v.43h-6.504v-.43c1.742 0 2.575-.354 2.575-1.946V9.73h-9.55v6.647c0 1.592.547 1.947 2.55 1.947v.43H0v-.43c1.743 0 2.576-.354 2.576-1.946V3.437c0-1.592-.833-1.948-2.576-1.948v-.43h6.505v.43c-2.004 0-2.55.355-2.55 1.947v5.737h9.55V3.436c0-1.591-.834-1.947-2.577-1.947v-.43h6.504v.43c-2.004 0-2.549.355-2.549 1.947"/></g></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h220v20H0z"/></clipPath></defs></svg>
+      <section>
+        <h2>Info</h2>
+        <p>Headless Horse articulates identities, surfaces and spaces across beauty, fashion and culture.<br>Folklore holds that blacksmiths hung battle-worn horseshoes upside down over the forge, so the work below would be imbued with good fortune. That shape became our mark.</p>
+        <h2>Clients</h2>
+        <p>Nike, LYMA, Charlotte Tilbury, Harley-Davidson, Rolls-Royce, Spotify, Nespresso, TEAM DR JOSEPH, Jordan, Yves Saint Laurent Beauty, JD Sports, Kiehl's, NBA.</p>
+        <h2>Connect</h2>
+        <ul>
+          <li><a href="mailto:mail@headless.horse" data-more="Talk to us ·𖥔 ݁˖">mail@headless.horse</a></li>
+          <li><a href="https://instagram.com/headless.horse" target="_blank" data-more="Instagram">@headless.horse</a></li>
+        </ul>
+        <h2>Press</h2>
+        <ul>
+          <li><a href="https://vogue.co.uk/beauty/gallery/best-mood-supplements#:~:text=lyma" target="_blank" rel="noreferrer" data-more="16.11.20">Vogue</a><a href="https://vogue.co.uk/article/best-multivitamins-for-women#:~:text=lyma" target="_blank" rel="noreferrer" data-more="10.05.24"> · 2</a></li>
+          <li><a href="https://elle.de/beauty/trends/3-beauty-neuheiten-im-maerz-2026-mich-begeistern" target="_blank" rel="noreferrer" data-more="16.03.26">Elle</a></li>
+          <li><a href="https://forbes.com/sites/biancasalonga/2022/09/07/meet-the-gold-standard-and-supermodel-health-supplement-from-lyma" target="_blank" rel="noreferrer" data-more="07.09.22">Forbes</a></li>
+          <li><a href="https://ft.com/content/08078211-638b-4326-ac2e-92ae2cdf65c9" target="_blank" rel="noreferrer" data-more="07.09.22">Financial Times</a></li>
+          <li><a href="https://the-brandidentity.com/project/how-headless-horse-reimagined-team-dr-josephs-identity-and-packaging-for-a-sustainable-future" target="_blank" rel="noreferrer" data-more="13.07.23">The Brand Identity</a></li>
+          <li><a href="https://thedieline.com/team-dr-josephs-simple-approach-to-beauty-packaging-is-highly-intentional" target="_blank" rel="noreferrer" data-more="31.01.23">Dieline</a></li>
+          <li><a href="https://commarts.com/webpicks/team-dr-joseph" target="_blank" rel="noreferrer" data-more="16.02.23">Communication Arts</a></li>
+          <li><a href="https://hypebeast.com/2021/3/billelis-mints-macabre-artworks-for-upcoming-nft-release" target="_blank" rel="noreferrer" data-more="19.03.21">Hypebeast</a><a href="https://hypebeast.com/2017/11/nike-air-max-1-marble-alasdair-thomson" target="_blank" rel="noreferrer" data-more="19.03.21"> · 2</a></li>
+          <li><a href="https://highsnobiety.com/p/marble-air-max-1-alasdair-thomson" target="_blank" rel="noreferrer" data-more="05.11.17">Highsnobiety</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <script>
+      /* ------------------- Helpers ------------------- */
+
+      const M = {
+        clamp: (v, min, max) => Math.min(max, Math.max(min, v)),
+        map: (x, a, b, c, d) => c + ((d - c) * (x - a)) / (b - a) || 0,
+        lerp: (a, b, t) => a + (b - a) * t,
+      };
+
+      function type(el, text, speed = 40) {
+        clearTimeout(el._t);
+        el.textContent = '';
+        let i = 0;
+        const step = () => {
+          if (i >= text.length) return;
+          el.textContent += text[i++];
+          el._t = setTimeout(step, speed);
+        };
+        step();
+      }
+
+      function scramble(el, text, duration = 700, tick = 28) {
+        const glyphs = '01</>[]{}#*+=-_?!@%$&()^~|;:,.';
+        const frames = Math.max(1, Math.round(duration / tick));
+        let frame = 0;
+        clearTimeout(el._t);
+        const step = () => {
+          frame++;
+          const progress = frame / frames;
+          el.textContent = text.split('').map((ch, i) => (ch === ' ' || i / text.length < progress) ? ch : glyphs[Math.floor(Math.random() * glyphs.length)]).join('');
+          if (frame >= frames) { el.textContent = text; return; }
+          el._t = setTimeout(step, tick);
+        };
+        step();
+      }
+
+      function staggerScramble(elements, delayStep, duration = 500, tick = 24, durationStep = 0) {
+        elements.filter(Boolean).forEach((el, i) => {
+          const text = el.textContent.trim();
+          if (text) setTimeout(() => scramble(el, text, duration + i * durationStep, tick), i * delayStep);
+        });
+      }
+
+      function bootIntro() {
+        const targets = [...document.querySelectorAll('nav button'), document.querySelector('#filter .filter-label'), document.getElementById('coords')];
+        staggerScramble(targets, 90, 700, 28, 40);
+      }
+
+      /* ------------------- Pinterest ------------------- */
+
+      const CONTENT = {
+        research: ['direction', 'graphic', 'print', 'wellness', 'space', 'fashion'],
+        work: ['work-studio', 'work-team-dr-joseph', 'work-lyma'],
+      };
+
+      async function fetchPins(endpoint) {
+        const res = await fetch(`https://widgets.pinterest.com/v3/pidgets/${endpoint}?limit=100`);
+        if (!res.ok) throw new Error('network error');
+        const json = await res.json();
+        const pins = json?.data?.pins;
+        if (!Array.isArray(pins)) throw new Error('unexpected response');
+        return pins;
+      }
+
+      /* ------------------- Board ------------------- */
+
+      class Board {
+        constructor() {
+          this.list = document.getElementById('filter-list');
+          this.filter = document.getElementById('filter');
+          this.stage = document.getElementById('stage');
+          this.viewport = document.getElementById('viewport');
+          this.status = document.getElementById('status');
+          this.coords = document.getElementById('coords');
+
+          this.section = 'research';
+          this.active = new Set(['All']);
+          this.cache = {};
+          this.entries = [];
+          this.scale = 1;
+          this.minScale = .7;
+          this.maxScale = 2;
+          this.tx = this.ty = this.tTx = this.tTy = this.xMin = this.yMin = this.xMax = this.yMax = 0;
+          this.vx = this.vy = 0;
+          this.mode = 'follow';
+          this.manual = false;
+          this.infoOpen = false;
+          this.firstLoad = true;
+          this.focused = null;
+          this.hoverLock = false;
+          this._viewAnimGen = 0;
+          this.sonicsEnabled = true;
+          this._idle = null;
+          this._wandering = false;
+
+          this.list.addEventListener('click', e => {
+            const item = e.target.closest('li');
+            if (item) this.toggle(item.dataset.tag);
+          });
+
+          this.filter.addEventListener('toggle', () => {
+            if (this.filter.open) this.scrambleFilter();
+          });
+
+          this.buildList();
+          this.move();
+          this.refresh();
+        }
+
+      /* ------------------- Filter ------------------- */
+
+        buildList() {
+          const allTitle = `All ${this.section} filters`;
+          this.list.innerHTML = ['All', ...CONTENT[this.section]]
+            .map(tag => `<li data-tag="${tag}"${tag === 'All' ? ` title="${allTitle}"` : ''}><span class="filter-label">${tag.replace(/^work\s*/i,'').replace(/-/g,' ')}</span></li>`).join('');
+          this.paint();
+        }
+
+        scrambleFilter() {
+          const targets = [this.filter.querySelector('summary .filter-label'), ...this.list.querySelectorAll('.filter-label')];
+          staggerScramble(targets, 60, 500, 24);
+        }
+
+        setSection(section) {
+          this.filter.open = true;
+          document.querySelectorAll('nav [data-section]').forEach(b => b.toggleAttribute('aria-current', b.dataset.section === section));
+          if (section === this.section) return;
+          this.section = section;
+          this.active = new Set(['All']);
+          this.buildList();
+          this.refresh();
+        }
+
+        toggle(tag) {
+          const allTag = 'All';
+          if (tag === allTag) this.active = new Set([tag]);
+          else {
+            this.active.delete(allTag);
+            this.active.has(tag) ? this.active.delete(tag) : this.active.add(tag);
+            if (!this.active.size) this.active.add(allTag);
+          }
+          this.paint();
+          this.refresh();
+        }
+
+        paint() {
+          [...this.list.children].forEach(item => item.classList.toggle('active', this.active.has(item.dataset.tag)));
+        }
+
+      /* ------------------- Fetching ------------------- */
+
+      async fetchTag(tag) {
+        return this.cache[tag] ??= fetchPins(`boards/headlesshorse/${tag}/pins/`);
+      }
+
+      async refresh() {
+        scramble(this.status, 'loading…', 700, 28);
+        try {
+          const tags = this.active.has('All') ? CONTENT[this.section] : [...this.active];
+          const entries = new Map;
+
+          await Promise.all(tags.map(async tag => {
+            for (const pin of await this.fetchTag(tag)) {
+              const entry = entries.get(pin.id) ?? entries.set(pin.id, { pin, tags: [] }).get(pin.id);
+              entry.tags.push(tag);
+            }
+          }));
+
+          this.entries = [...entries.values()];
+          if (!this.entries.length) throw Error('empty feed');
+
+          clearTimeout(this.status._t);
+          this.status.textContent = '';
+          this.scatter(this.entries);
+        } catch (e) {
+          type(this.status, 'Signal Lost: ' + e.message, 14);
+        }
+      }
+
+      /* ------------------- Layout ------------------- */
+      
+      resolveImage(pin) {
+        for (const size of ['564x', '474x', '237x', '236x']) {
+          const url = pin.images?.[size]?.url;
+          if (url) return url;
+        }
+        return Object.values(pin.images || {}).find(image => image?.url)?.url;
+      }
+
+      resolveSource(pin) {
+        for (const value of [pin?.link, pin?.url, pin?.pinterest_url, pin?.source?.url, pin?.source?.link].filter(Boolean)) {
+          try {
+            const url = new URL(value.startsWith('http') ? value : `https://${value}`);
+            return {
+              href: url,
+              label: `Source: ${url.hostname.replace(/^www\./i, '')}${url.pathname === '/' ? '' : url.pathname}`
+            };
+          } catch {}
+        }
+        return {
+          href: `https://pinterest.com/pin/${pin?.id}`,
+          label: 'Source'
+        };
+      }
+
+      scatter(entries) {
+        this.focused = null;
+        this.viewport.style.cursor = this.mode === 'drag' ? 'grab' : 'default';
+        this.stage.innerHTML = '';
+
+        const selected = entries
+          .slice()
+          .sort(() => Math.random() - .5)
+          .slice(0, 80);
+
+        const { clientWidth: viewportWidth, clientHeight: viewportHeight } = this.viewport;
+        const factor = 1.95 + (this.active.size - 1) * .25;
+        const width = Math.max(viewportWidth * factor, 4000);
+        const height = Math.max(viewportHeight * factor, 2500);
+
+        Object.assign(this.stage.style, {
+          width: `${width}px`,
+          height: `${height}px`
+        });
+
+        const aspect = width / height * (.85 + Math.random() * .3);
+        const columns = Math.ceil(Math.sqrt(selected.length * aspect));
+        const rows = Math.ceil(selected.length / columns);
+        const cellWidth = width / columns;
+        const cellHeight = height / rows;
+        const cells = Array.from(
+          { length: columns * rows },
+          (_, i) => [i % columns, Math.floor(i / columns)]
+        ).sort(() => Math.random() - .5);
+
+        selected.forEach(({ pin }, index) => {
+          const image = this.resolveImage(pin);
+          if (!image) return;
+
+          const source = this.resolveSource(pin);
+          const [column, row] = cells[index % cells.length];
+          const x = column * cellWidth + cellWidth / 2 + (Math.random() - .5) * cellWidth * .62;
+          const y = row * cellHeight + cellHeight / 2 + (Math.random() - .5) * cellHeight * .62;
+          const size = 130 + Math.random() * 110;
+          const rotation = (Math.random() * 6 - 3).toFixed(2);
+          const delay = (Math.random() * (this.firstLoad ? 1.5 : .5)).toFixed(2);
+          const duration = this.firstLoad ? 1.6 : 1;
+
+          const figure = document.createElement('figure');
+          figure.dataset.rot = rotation;
+          figure.dataset.color = pin.dominant_color || '';
+          figure.style.cssText = `left:${x}px;top:${y}px;width:${size}px;z-index:${Math.random() * 100 | 0};transform:translate(-50%,-50%) rotate(${rotation}deg)`;
+          figure.innerHTML = `<img src="${image}" loading="lazy" alt="" draggable="false" style="animation-delay:${delay}s;animation-duration:${duration}s"><figcaption><a href="${source.href}" target="_blank" rel="noopener" draggable="false">${source.label}</a></figcaption>`;
+          this.stage.appendChild(figure);
+        });
+
+        this.firstLoad = false;
+        this.scale = 1;
+        this.bounds();
+        this.tx = this.tTx = this.xMin / 2;
+        this.ty = this.tTy = this.yMin / 2;
+        this.apply();
+      }
+
+      bounds() {
+        const { clientWidth, clientHeight } = this.viewport;
+        const width = this.stage.offsetWidth * this.scale;
+        const height = this.stage.offsetHeight * this.scale;
+
+        this.xMin = Math.min(0, clientWidth - width);
+        this.yMin = Math.min(0, clientHeight - height);
+        this.xMax = Math.max(0, clientWidth - width);
+        this.yMax = Math.max(0, clientHeight - height);
+
+        this.tx = M.clamp(this.tx, this.xMin, this.xMax);
+        this.ty = M.clamp(this.ty, this.yMin, this.yMax);
+        this.tTx = M.clamp(this.tTx, this.xMin, this.xMax);
+        this.tTy = M.clamp(this.tTy, this.yMin, this.yMax);
+      }
+
+      apply() {
+        this.stage.style.transform = `translate(${this.tx}px,${this.ty}px) scale(${this.scale})`;
+        this.stage.style.setProperty('--scale', this.scale);
+
+        const x = Math.round((this.viewport.clientWidth / 2 - this.tx) / this.scale);
+        const y = Math.round((this.viewport.clientHeight / 2 - this.ty) / this.scale);
+        const sound = this.sonicsEnabled ? '⏵⏸' : '⏵';
+
+        this.coords.textContent = `X${String(x / 10 | 0).padStart(3, '0')} · Y${String(y / 10 | 0).padStart(3, '0')} · ${this.scale * 100 | 0}% · ${sound}`;
+      }
+
+      zoomTo(target, onDone) {
+        const step = () => {
+          this.scale = M.lerp(this.scale, target, .15);
+          this.bounds();
+          this.apply();
+
+          if (Math.abs(this.scale - target) > .01) return requestAnimationFrame(step);
+
+          this.scale = target;
+          this.bounds();
+          this.apply();
+          if (!this.manual) this.mode = target > 1 ? 'drag' : 'follow';
+          onDone?.();
+        };
+
+        step();
+      }
+
+      animateView(targetTx, targetTy, targetScale, onDone) {
+        const generation = ++this._viewAnimGen;
+
+        const step = () => {
+          if (generation !== this._viewAnimGen) return;
+
+          this.scale = M.lerp(this.scale, targetScale, .15);
+          this.tx = this.tTx = M.lerp(this.tx, targetTx, .15);
+          this.ty = this.tTy = M.lerp(this.ty, targetTy, .15);
+          this.apply();
+
+          if (Math.abs(this.scale - targetScale) > .01 || Math.hypot(this.tx - targetTx, this.ty - targetTy) > .5) {
+            return requestAnimationFrame(step);
+          }
+
+          this.scale = targetScale;
+          this.tx = this.tTx = targetTx;
+          this.ty = this.tTy = targetTy;
+          this.apply();
+          onDone?.();
+        };
+
+        step();
+      }
+
+      /* ------------------- Wander ------------------- */
+
+        scheduleIdle() {
+          clearTimeout(this._idle);
+          this._wandering = false;
+          this._idle = setTimeout(() => this.wander(), 4000);
+        }
+
+        wander() {
+          if (this.infoOpen || this.focused || this.hoverLock || this.mode !== 'follow') return;
+          this._wandering = true;
+          this.tTx = M.lerp(this.xMin, this.xMax, Math.random());
+          this.tTy = M.lerp(this.yMin, this.yMax, Math.random());
+          this._idle = setTimeout(() => this._wandering && this.wander(), 3500 + Math.random() * 3000);
+        }
+
+      /* ------------------- Movement ------------------- */
+
+        move() {
+          let dragging = false, startX = 0, startY = 0, startTx = 0, startTy = 0;
+
+          const setMode = mode => {
+            this.mode = mode;
+            this.viewport.style.cursor = mode === 'drag' ? 'grab' : 'default';
+          };
+
+          const track = e => {
+            this.scheduleIdle();
+            if (this.infoOpen || this.focused || this.hoverLock || this.mode !== 'follow') return;
+            const { clientX, clientY } = e.touches?.[0] || e;
+            const followX = this.xMin < 0 ? this.xMin : 0;
+            const followY = this.yMin < 0 ? this.yMin : 0;
+            this.tTx = M.clamp(M.map(clientX, 0, this.viewport.clientWidth, 0, followX), this.xMin, this.xMax);
+            this.tTy = M.clamp(M.map(clientY, 0, this.viewport.clientHeight, 0, followY), this.yMin, this.yMax);
+          };
+          window.addEventListener('mousemove', track);
+          window.addEventListener('touchmove', track, { passive: true });
+
+          this.viewport.addEventListener('pointerdown', e => {
+            this.scheduleIdle();
+            if (this.infoOpen || this.focused || this.mode !== 'drag') return;
+            dragging = true;
+            startX = e.clientX; startY = e.clientY;
+            startTx = this.tx; startTy = this.ty;
+            this.viewport.style.cursor = 'grabbing';
+          });
+          window.addEventListener('pointermove', e => {
+            if (this.infoOpen || !dragging) return;
+            this.tx = this.tTx = M.clamp(startTx + (e.clientX - startX), this.xMin, this.xMax);
+            this.ty = this.tTy = M.clamp(startTy + (e.clientY - startY), this.yMin, this.yMax);
+          });
+          window.addEventListener('pointerup', () => {
+            dragging = false;
+            if (this.mode === 'drag' && !this.infoOpen) this.viewport.style.cursor = 'grab';
+          });
+
+          window.addEventListener('keydown', e => {
+            if (this.infoOpen || this.focused || e.key.toLowerCase() !== 'd') return;
+            this.manual = true;
+            setMode(this.mode === 'follow' ? 'drag' : 'follow');
+          });
+
+          this.viewport.addEventListener('wheel', e => {
+            this.scheduleIdle();
+            if (this.infoOpen || this.focused) return;
+            e.preventDefault();
+            const rect = this.viewport.getBoundingClientRect();
+            const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+            const scale = M.clamp(this.scale - e.deltaY * .0015, this.minScale, this.maxScale);
+            this.tx = this.tTx = mx - ((mx - this.tx) / this.scale) * scale;
+            this.ty = this.tTy = my - ((my - this.ty) / this.scale) * scale;
+            this.scale = scale;
+            if (!this.manual) setMode(scale >= 1.2 ? 'drag' : 'follow');
+            this.bounds();
+            this.apply();
+          }, { passive: false });
+
+          const loop = () => {
+            if (this.infoOpen) {
+              this.tx += this.vx;
+              this.ty += this.vy;
+              this.vx *= .86;
+              this.vy *= .86;
+              this.bounds();
+              this.apply();
+              return requestAnimationFrame(loop);
+            }
+            if (this.focused) return requestAnimationFrame(loop);
+            const nextTx = M.lerp(this.tx, this.tTx, .045);
+            const nextTy = M.lerp(this.ty, this.tTy, .045);
+            this.vx = nextTx - this.tx;
+            this.vy = nextTy - this.ty;
+            this.tx = nextTx;
+            this.ty = nextTy;
+            this.apply();
+            requestAnimationFrame(loop);
+          };
+          requestAnimationFrame(loop);
+
+          let resizeTimer;
+          window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => { this.bounds(); if (this.entries.length) this.scatter(this.entries); }, 200);
+          });
+
+          this.scheduleIdle();
+        }
+      }
+
+      /* ------------------- Info ------------------- */
+
+      function partFigures(board, cx, cy, opening, exclude) {
+        const radius = Math.min(innerWidth, innerHeight) / board.scale;
+
+        board.stage.querySelectorAll('figure').forEach(figure => {
+          if (figure === exclude) return;
+
+          const rotation = figure.dataset.rot || '0';
+          const reset = () => {
+            figure.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+            figure.style.opacity = '';
+          };
+
+          if (!opening) return reset();
+
+          const halfSize = (parseFloat(figure.style.width) || 0) / 2;
+          const dx = parseFloat(figure.style.left) - cx;
+          const dy = parseFloat(figure.style.top) - cy;
+          const distance = Math.hypot(dx, dy);
+
+          if (distance > radius + halfSize) return reset();
+
+          const push = radius - distance + halfSize + 80 / board.scale;
+          const offsetX = dx / (distance || 1) * push;
+          const offsetY = dy / (distance || 1) * push;
+
+          figure.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px)) rotate(${rotation}deg)`;
+          figure.style.opacity = '0';
+        });
+      }
+
+      function setupInfo(board) {
+        const overlay = document.getElementById('info');
+        const button = document.getElementById('info-btn');
+
+        const partImages = opening => {
+          const scale = board.scale;
+          const cx = (innerWidth / 2 - board.tx) / scale;
+          const cy = (innerHeight / 2 - board.ty) / scale;
+          partFigures(board, cx, cy, opening);
+        };
+
+        const open = () => {
+          board.filter.open = false;
+          board.vx = (board.tTx - board.tx) * .25;
+          board.vy = (board.tTy - board.ty) * .25;
+          board.infoOpen = true;
+          board.viewport.style.cursor = 'w-resize';
+
+          board.zoomTo(1, () => {
+            partImages(true);
+            setTimeout(() => overlay.setAttribute('aria-hidden', 'false'), 50);
+          });
+        };
+
+        const dismiss = () => {
+          overlay.setAttribute('aria-hidden', 'true');
+          board.infoOpen = false;
+          board.viewport.style.cursor = 'default';
+          partImages(false);
+        };
+
+        button.addEventListener('click', open);
+
+        document.addEventListener('click', ({ target }) => {
+          if (overlay.getAttribute('aria-hidden') === 'false' && !overlay.contains(target) && target !== button) {
+            dismiss();
+          }
+        });
+
+        window.addEventListener('keydown', ({ key }) => {
+          if (key === 'Escape' && overlay.getAttribute('aria-hidden') === 'false') dismiss();
+        });
+      }
+
+      /* ------------------- Focus ------------------- */
+      
+      function targetScaleFor(figure, board) {
+        const image = figure.querySelector('img');
+        const width = parseFloat(figure.style.width) || figure.offsetWidth || 1;
+        const resolution = window.devicePixelRatio || 1;
+        const naturalWidth = image.naturalWidth || width * 2;
+
+        return M.clamp(naturalWidth / (width * resolution), 2, board.maxScale);
+      }
+
+      function setupFocus(board) {
+        let previousScale = 1;
+        let previousTx = 0;
+        let previousTy = 0;
+        let downX = 0;
+        let downY = 0;
+
+        const open = figure => {
+          if (board.infoOpen || board.focused === figure) return;
+
+          if (!board.focused) {
+            previousScale = board.scale;
+            previousTx = board.tx;
+            previousTy = board.ty;
+          } else {
+            board.focused.style.zIndex = board.focused.dataset.zBase ?? '';
+          }
+
+          board.focused = figure;
+
+          figure.dataset.zBase = figure.style.zIndex || '';
+          figure.style.zIndex = 1000;
+          figure.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+          board.viewport.style.cursor = 'w-resize';
+
+          const x = parseFloat(figure.style.left);
+          const y = parseFloat(figure.style.top);
+          const scale = targetScaleFor(figure, board);
+          const stageX = board.stage.offsetWidth / 2;
+          const stageY = board.stage.offsetHeight / 2;
+          const targetTx = board.viewport.clientWidth / 2 - stageX - scale * (x - stageX);
+          const targetTy = board.viewport.clientHeight / 2 - stageY - scale * (y - stageY);
+
+          board.animateView(targetTx, targetTy, scale, () => {
+            if (board.focused === figure) partFigures(board, x, y, true, figure);
+          });
+        };
+
+        const dismiss = () => {
+          const figure = board.focused;
+          if (!figure) return;
+
+          board.viewport.style.cursor = board.mode === 'drag' ? 'grab' : 'default';
+          partFigures(board, 0, 0, false);
+
+          figure.style.zIndex = figure.dataset.zBase ?? '';
+
+          board.animateView(previousTx, previousTy, previousScale, () => {
+            board.focused = null;
+            board.bounds();
+            board.scheduleIdle();
+          });
+        };
+
+        board.stage.addEventListener('pointerdown', ({ clientX, clientY }) => {
+          downX = clientX;
+          downY = clientY;
+        });
+
+        board.stage.addEventListener('click', e => {
+          if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return;
+          if (e.target.closest('a') || board.infoOpen) return;
+
+          const figure = e.target.closest('figure');
+
+          if (figure === board.focused) return dismiss();
+          if (figure) return open(figure);
+          if (board.focused) dismiss();
+        });
+
+        window.addEventListener('keydown', ({ key }) => {
+          if (key === 'Escape' && board.focused) dismiss();
+        });
+      }
+
+      /* ------------------- Sonics ------------------- */
+      
+      const S=[0,2,3,7,10,14],R=46.25;
+
+      function hexToHsl(x){
+        let n=parseInt(x.slice(1),16),r=(n>>16&255)/255,g=(n>>8&255)/255,b=(n&255)/255,
+            M=Math.max(r,g,b),m=Math.min(r,g,b),l=(M+m)/2;
+        if(M==m)return{h:0,s:0,l};
+        let d=M-m,s=d/(1-Math.abs(2*l-1)),h=M==r?(g-b)/d:M==g?(b-r)/d+2:(r-g)/d+4;
+        return{h:(h*60+360)%360,s,l};
+      }
+
+      function colorToFreq({h,l}){
+        return R*2**((S[Math.floor(h/360*S.length)]+Math.round(l*1.4)*12)/12);
+      }
+
+      class Sonics{
+        enabled=1;
+
+        init(){
+          if(this.ctx)return;
+          let C=this.ctx=new(window.AudioContext||webkitAudioContext);
+
+          this.master=C.createGain();
+          this.master.gain.value=.22;
+
+          let c=C.createDynamicsCompressor();
+          c.threshold.value=-24;
+          c.knee.value=22;
+          c.ratio.value=2.5;
+          c.attack.value=.03;
+          c.release.value=.6;
+
+          this.master.connect(c).connect(C.destination);
+
+          this.amb=C.createOscillator();
+          this.ambG=C.createGain();
+          this.amb.type='sine';
+          this.amb.frequency.value=R/2;
+          this.ambG.gain.value=.018;
+          this.amb.connect(this.ambG).connect(this.master);
+          this.amb.start();
+        }
+
+        start(){
+          this.init();
+          this.ctx.resume();
+          this.enabled=1;
+          this.ambG.gain.setTargetAtTime(.018,this.ctx.currentTime,.5);
+        }
+
+        stop(){
+          this.enabled=0;
+          if(this.ctx)this.ambG.gain.setTargetAtTime(0,this.ctx.currentTime,.5);
+        }
+
+        toggle(){
+          this.enabled?this.stop():this.start();
+          return this.enabled;
+        }
+
+        play(f,s,l){
+          if(!this.enabled)return;
+
+          let C=this.ctx,t=C.currentTime,d=1.8+l*1.8,
+              g=C.createGain(),p=C.createStereoPanner(),q=C.createBiquadFilter();
+
+          q.type='lowpass';
+          q.frequency.value=550+s*1700;
+          q.Q.value=1.2;
+
+          g.gain.setValueAtTime(0,t);
+          g.gain.linearRampToValueAtTime(.09+s*.03,t+.06);
+          g.gain.exponentialRampToValueAtTime(.001,t+d);
+
+          p.pan.value=(Math.random()-.5)*.5;
+
+          let o=C.createOscillator(),x=C.createOscillator(),z=C.createOscillator();
+
+          o.type=x.type=z.type='sine';
+          o.frequency.value=f;
+          x.frequency.value=f*2.01;
+          z.frequency.value=f*3.97;
+
+          o.connect(q);
+          x.connect(q);
+          q.connect(g).connect(p).connect(this.master);
+
+          let zg=C.createGain();
+          zg.gain.setValueAtTime(.018*s,t);
+          zg.gain.exponentialRampToValueAtTime(.001,t+d*.65);
+          z.connect(zg).connect(this.master);
+
+          o.start(t);x.start(t);z.start(t);
+          o.stop(t+d);x.stop(t+d);z.stop(t+d);
+        }
+      }
+
+      function setupSonics(board){
+        let s=new Sonics(),coords=document.getElementById('coords'),last;
+
+        board.sonicsEnabled=1;
+
+        let arm=()=>s.start();
+        addEventListener('pointerdown',arm,{once:1});
+        addEventListener('keydown',arm,{once:1});
+
+        coords.onclick=()=>{
+          board.sonicsEnabled=s.toggle();
+        };
+
+        board.stage.onpointerover=e=>{
+          let f=e.target.closest('figure[data-color]');
+          if(!f||f==last||!s.ctx)return;
+
+          last=f;
+
+          let h=hexToHsl(f.dataset.color);
+          s.play(colorToFreq(h),h.s,h.l);
+        };
+
+        board.stage.onpointerout=e=>{
+          if(!e.relatedTarget?.closest?.('figure'))last=null;
+        };
+      }
+
+      /* ------------------- Mobile ------------------- */
+
+      if (window.innerWidth <= 820) {
+        document.body.innerHTML = '<a href="mailto:mail@headless.horse">mail@headless.horse</a>';
+        document.body.style.cssText = 'display:flex;align-items:center;justify-content:center;height:100svh;text-align:center;';
+      }
+
+      /* ------------------- Boot ------------------- */
+      
+      const board = new Board();
+      bootIntro();
+      setupInfo(board);
+      setupFocus(board);
+      setupSonics(board);
+      document.querySelectorAll('nav [data-section]').forEach(b => b.addEventListener('click', () => board.setSection(b.dataset.section)));
+    </script>
+    <script async defer src="https://scripts.withcabin.com/hello.js"></script>
+  </body>
+</html>
